@@ -31,12 +31,12 @@ find_library(
         log-lib
         log
 )
-find_library(
-        JSI_LIB
-        jsi
-        PATHS ${LIBRN_DIR}
-        NO_CMAKE_FIND_ROOT_PATH
-)
+# find_library(
+#         JSI_LIB
+#         jsi
+#         PATHS ${LIBRN_DIR}
+#         NO_CMAKE_FIND_ROOT_PATH
+# )
 find_library(
         REACT_NATIVE_JNI_LIB
         reactnativejni
