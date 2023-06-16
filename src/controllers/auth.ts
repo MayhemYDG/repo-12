@@ -1,69 +1,12 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
-import * as fs from 'fs';
 import * as path from 'path';
 import * as puppeteer from 'puppeteer';
 import * as qrcode from 'qrcode-terminal';
-import { existsSync, readFileSync } from 'fs';
-import { CreateConfig } from '../config/create-config';
 import { ScrapQrcode } from '../api/model/qrcode';
-import { tokenSession } from '../config/tokenSession.config';
+import { sleep } from '../utils/sleep';
+import { Whatsapp } from '../api/whatsapp';
+const QRCode = require('qrcode');
 
-export const getInterfaceStatus = async (
-  waPage: puppeteer.Page
-): Promise<any> => {
+export const getInterfaceStatus = async (waPage: puppeteer.Page) => {
   return await waPage
     .waitForFunction(
       () => {
@@ -79,10 +22,7 @@ export const getInterfaceStatus = async (
           return 'UNPAIRED';
         }
 
-        const streamStatus =
-          window['Store'] &&
-          window['Store'].Stream &&
-          window['Store'].Stream.displayInfo;
+        const streamStatus = window?.Store?.Stream?.displayInfo;
 
         if (['PAIRING', 'RESUMING', 'SYNCING'].includes(streamStatus)) {
           return 'PAIRING';
@@ -99,13 +39,17 @@ export const getInterfaceStatus = async (
         polling: 100
       }
     )
-    .then(async (element) => {
-      return await element.evaluate((a) => {
-        return a;
-      });
+    .then(async (element: any) => {
+      return await element
+        .evaluate((a: any) => {
+          return a;
+        })
+        .catch(() => undefined);
     })
-    .catch((e) => e);
+    .catch(() => undefined);
 };
+
+// };
 
 /**
  * Validates if client is authenticated
@@ -114,9 +58,11 @@ export const getInterfaceStatus = async (
  */
 export const isAuthenticated = async (waPage: puppeteer.Page) => {
   const status = await getInterfaceStatus(waPage);
+
   if (typeof status === 'object') {
     return status;
   }
+
   if (typeof status !== 'string') {
     return null;
   }
@@ -128,7 +74,6 @@ export const needsToScan = async (waPage: puppeteer.Page) => {
   if (typeof status !== 'string') {
     return null;
   }
-
   return status === 'UNPAIRED';
 };
 
@@ -152,40 +97,57 @@ export const isConnectingToPhone = async (waPage: puppeteer.Page) => {
 
 export async function asciiQr(code: string): Promise<string> {
   return new Promise((resolve) => {
-    qrcode.generate(code, { small: true }, (qrcode) => {
-      resolve(qrcode);
-    });
+    try {
+      qrcode.generate(code, { small: true }, (qrcode) => {
+        resolve(qrcode);
+      });
+    } catch (e) {}
   });
 }
 
 export async function retrieveQR(
   page: puppeteer.Page
 ): Promise<ScrapQrcode | undefined> {
-  const hasCanvas = await page.evaluate(
-    () => document.querySelector('canvas') !== null
-  );
+  const hasCanvas = await page
+    .evaluate(() => {
+      const buttonReload = document.querySelector('button');
+      const canvas = document.querySelector('canvas');
+      if (canvas !== null && buttonReload === null) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch(() => undefined);
 
-  if (!hasCanvas) {
+  if (hasCanvas === false) {
     return undefined;
   }
 
-  await page.addScriptTag({
-    path: require.resolve(path.join(__dirname, '../lib/jsQR', 'jsQR.js'))
-  });
+  await page
+    .addScriptTag({
+      path: require.resolve(path.join(__dirname, '../lib/jsQR', 'jsQR.js'))
+    })
+    .catch(() => undefined);
 
   return await page
     .evaluate(() => {
+      const buttonReload = document.querySelector('button');
       const canvas = document.querySelector('canvas') || null;
-      if (canvas !== null) {
+      if (canvas !== null && buttonReload === null) {
         const context = canvas.getContext('2d') || null;
-        if (context !== null) {
+        if (context !== null && buttonReload === null) {
           // @ts-ignore
           const code = jsQR(
             context.getImageData(0, 0, canvas.width, canvas.height).data,
             canvas.width,
             canvas.height
           );
-          return { urlCode: code.data, base64Image: canvas.toDataURL() };
+
+          return {
+            urlCode: code.data ? code.data : '',
+            base64Image: canvas.toDataURL()
+          };
         }
       }
       return undefined;
@@ -193,112 +155,61 @@ export async function retrieveQR(
     .catch(() => undefined);
 }
 
-export function SessionTokenCkeck(token: object) {
-  if (
-    token &&
-    token['WABrowserId'] &&
-    token['WASecretBundle'] &&
-    token['WAToken1'] &&
-    token['WAToken2']
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
+export async function checkDisconnect(page: puppeteer.Page, wpp: Whatsapp) {
+  while (true) {
+    const erroBrowser = await page
+      .evaluate(() => {
+        const WebEncKeySalt = localStorage.getItem('WebEncKeySalt');
+        const WANoiseInfo = localStorage.getItem('WANoiseInfo');
+        if (WebEncKeySalt === null && WANoiseInfo === null) {
+          return true;
+        }
+        return false;
+      })
+      .catch(() => {});
 
-export async function auth_InjectToken(
-  page: puppeteer.Page,
-  session: string,
-  options: CreateConfig,
-  token?: tokenSession
-) {
-  if (!token) {
-    const pathToken: string = path.join(
-      path.resolve(
-        process.cwd() + options.mkdirFolderToken,
-        options.folderNameToken
-      ),
-      `${session}.data.json`
-    );
-    if (existsSync(pathToken)) {
-      token = JSON.parse(readFileSync(pathToken).toString());
+    if (erroBrowser) {
+      await wpp.delProfile();
     }
+    await sleep(100);
   }
-
-  if (!token || !SessionTokenCkeck(token)) {
-    return false;
-  }
-
-  //Auth with token ->start<-
-  await page.evaluate((session) => {
-    localStorage.clear();
-    Object.keys(session).forEach((key) => {
-      localStorage.setItem(key, session[key]);
-    });
-  }, token as any);
-  //End Auth with token
 }
 
-export async function saveToken(
-  page: puppeteer.Page,
-  session: string,
-  options: CreateConfig
-) {
-  const token = (await page
-    .evaluate(() => {
-      if (window.localStorage) {
-        return {
-          WABrowserId: window.localStorage.getItem('WABrowserId'),
-          WASecretBundle: window.localStorage.getItem('WASecretBundle'),
-          WAToken1: window.localStorage.getItem('WAToken1'),
-          WAToken2: window.localStorage.getItem('WAToken2')
-        };
-      }
-      return undefined;
-    })
-    .catch(() => undefined)) as tokenSession;
+export async function checkStore(page: puppeteer.Page, client: Whatsapp) {
+  while (true) {
+    const result = await page
+      .evaluate(() => {
+        const checkStore =
+          typeof window.Store !== 'undefined'
+            ? Object.keys(window.Store).length
+            : undefined;
+        if (!checkStore || !window.WAPI) {
+          if (
+            window['webpackChunkwhatsapp_web_client'] &&
+            Array.isArray(window['webpackChunkwhatsapp_web_client'])
+          ) {
+            let last = window['webpackChunkwhatsapp_web_client'].length - 1;
+            let check =
+              window['webpackChunkwhatsapp_web_client'] &&
+              window['webpackChunkwhatsapp_web_client'][last] &&
+              window['webpackChunkwhatsapp_web_client'][last][0]
+                ? []
+                : undefined;
+            if (check !== undefined) {
+              window.Store = undefined;
+              window.WAPI = undefined;
+              return false;
+            }
+          }
+        }
+        return true;
+      })
+      .catch(() => {});
 
-  if (!token || !SessionTokenCkeck(token)) {
-    return false;
-  }
-
-  const folder = path.join(
-    path.resolve(
-      process.cwd() + options.mkdirFolderToken,
-      options.folderNameToken
-    )
-  );
-
-  try {
-    fs.mkdirSync(folder, { recursive: true });
-  } catch (error) {
-    throw 'Failed to create folder tokens...';
-  }
-
-  try {
-    fs.writeFileSync(
-      path.join(folder, `${session}.data.json`),
-      JSON.stringify(token)
-    );
-    fs.chmodSync(folder, '777');
-    fs.chmodSync(folder + '/' + session + '.data.json', '777');
-  } catch (error) {
-    throw 'Failed to save token...';
-  }
-
-  return token;
-}
-
-export async function isBeta(page: puppeteer.Page) {
-  return await page.evaluate(() => {
-    if (
-      window.localStorage.getItem('WASecretBundle') &&
-      window.localStorage.getItem('WAToken1') &&
-      window.localStorage.getItem('WAToken2')
-    ) {
-      return true;
+    if (result === false) {
+      await client.initService();
+      // await injectApi(page).catch(() => {});
     }
-    return false;
-  });
+    await sleep(100);
+  }
 }

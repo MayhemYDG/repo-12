@@ -7,7 +7,7 @@ export async function checkNumberStatus(id, conn = false) {
       window.Store.State.Socket &&
       window.Store.State.Socket.state
         ? window.Store.State.Socket.state
-        : undefined;
+        : '';
     const checkType = WAPI.sendCheckType(id);
     if (!!checkType && checkType.status === 404) {
       Object.assign(err, {
@@ -28,9 +28,10 @@ export async function checkNumberStatus(id, conn = false) {
       }
     }
 
-    if (WAPI.isBeta()) {
-      return await Store.checkNumberBeta
-        .queryExists(new Store.WidFactory.createWid(id))
+    const lid = await WAPI.getChat(id);
+    if (lid) {
+      return await Store.checkNumber
+        .queryWidExists(lid.id)
         .then((result) => {
           if (!!result && typeof result === 'object') {
             const data = {
@@ -56,21 +57,12 @@ export async function checkNumberStatus(id, conn = false) {
             text: err
           });
         });
+    } else {
+      throw Object.assign(err, {
+        connection: connection,
+        numberExists: false
+      });
     }
-
-    const result = await Store.checkNumber.queryExist(id);
-    if (result.status === 200) {
-      return {
-        status: result.status,
-        numberExists: true,
-        id: result.jid
-      };
-    }
-    return {
-      status: result.status,
-      numberExists: false,
-      text: `The number does not exist`
-    };
   } catch (e) {
     return {
       status: e.error,

@@ -1,59 +1,4 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
 import {
-  _getGroupParticipants,
   addParticipant,
   areAllMessagesLoaded,
   asyncLoadAllEarlierMessages,
@@ -63,8 +8,7 @@ import {
   clearChatMessages,
   createGroup,
   deleteConversation,
-  deleteMessagesAll,
-  deleteMessagesMe,
+  deleteMessages,
   demoteParticipant,
   downloadFile,
   encryptAndUploadFile,
@@ -72,13 +16,10 @@ import {
   getAllChatIds,
   getAllChats,
   getAllChatsWithMessages,
-  getAllChatsWithNewMessages,
   getAllContacts,
   getAllGroupMetadata,
   getAllGroups,
   getAllMessagesInChat,
-  getAllNewMessages,
-  getAllUnreadMessages,
   getBatteryLevel,
   getChat,
   getChatById,
@@ -87,8 +28,7 @@ import {
   getContact,
   getGroupAdmins,
   getGroupInviteLink,
-  getGroupMetadata,
-  getGroupParticipantIDs,
+  getGroupParticipant,
   getHost,
   getMe,
   getMessageById,
@@ -99,8 +39,6 @@ import {
   getProfilePicFromServer,
   getStatus,
   getUnreadMessages,
-  getUnreadMessagesInChat,
-  hasUndreadMessages,
   isConnected,
   isLoggedIn,
   leaveGroup,
@@ -127,18 +65,22 @@ import {
   sendMessage2,
   sendMessageWithTags,
   sendMessageWithThumb,
-  sendSeen,
   sendSticker,
   sendVideoAsGif,
   setMyName,
   setMyStatus,
   startTyping,
-  stopTyping,
+  startRecording,
+  markPaused,
+  clearPresence,
+  presenceAvailable,
+  presenceUnavailable,
   openChat,
   openChatAt,
   getGroupInfoFromInviteLink,
   joinGroup,
   markUnseenMessage,
+  markMarkSeenMessage,
   getTheme,
   setTheme,
   restartService,
@@ -147,6 +89,7 @@ import {
   scope,
   getchatId,
   sendExist,
+  returnChat,
   sendContactVcardList,
   setProfilePic,
   pinChat,
@@ -158,33 +101,49 @@ import {
   checkIdMessage,
   returnReply,
   logout,
+  setPresenceOnline,
+  setPresenceOffline,
+  archiveChat,
+  setNewMessageId,
   setGroupDescription,
+  sendButtons,
   setGroupTitle,
   setGroupSettings,
-  sendButtons,
-  sendListMenu,
-  checkChat,
+  getAllMessagesDate,
   checkNumberStatus,
   sendCheckType,
-  isBeta
+  sendListMenu,
+  getStateConnection,
+  isBeta,
+  sendReactions,
+  addChatWapi,
+  sendTypeButtons,
+  onlySendAdmin,
+  createCommunity,
+  pollCreation
 } from './functions';
 import {
   base64ToFile,
   generateMediaKey,
   getFileHash,
   arrayBufferToBase64,
-  sleep
+  sleep,
+  injectConfig
 } from './helper';
 import {
   addNewMessagesListener,
   addOnAddedToGroup,
   addOnLiveLocation,
   addOnNewAcks,
+  addOnPoll,
   addOnParticipantsChange,
   addOnStateChange,
-  allNewMessagesListener,
   initNewMessagesListener,
-  addOnStreamChange
+  addOnStreamChange,
+  addonFilePicThumb,
+  addonUnreadMessage,
+  addonChatState,
+  addOnStream
 } from './listeners';
 import {
   _serializeChatObj,
@@ -192,18 +151,20 @@ import {
   _serializeMessageObj,
   _serializeProfilePicThumb,
   _serializeRawObj,
-  _serializeMeObj
+  _serializeMeObj,
+  _serializeForcing
 } from './serializers';
 import { getStore } from './store/get-store';
 
-window['webpackChunkwhatsapp_web_client'] =
-  window['webpackChunkwhatsapp_web_client'] || [];
-
 window.Store = {};
-var loadParasite = async function () {
-  function injectParasite() {
-    const parasite = `parasite`;
-    window['webpackChunkwhatsapp_web_client'].push([
+
+function injectParasite() {
+  if (
+    window.webpackChunkwhatsapp_web_client &&
+    Array.isArray(window.webpackChunkwhatsapp_web_client)
+  ) {
+    const parasite = injectConfig.parasite;
+    window[injectConfig.webpack].push([
       [parasite],
       {},
       async function (o) {
@@ -215,40 +176,44 @@ var loadParasite = async function () {
       }
     ]);
   }
-  while (true) {
-    try {
-      const last = window['webpackChunkwhatsapp_web_client'].length - 1;
-      if (
-        !window['webpackChunkwhatsapp_web_client'][last][0].includes(
-          'parasite'
-        ) &&
-        (document.querySelectorAll('#app').length ||
-          document.querySelectorAll('#app .two').length ||
-          document.querySelector('canvas') ||
-          document.querySelectorAll('#startup').length == 0)
-      ) {
-        injectParasite();
-        return;
-      }
-    } catch (e) {}
-    await sleep(1000);
-  }
-};
+}
 
-loadParasite();
+(async () => {
+  // window[injectConfig.webpack] = window[injectConfig.webpack] || [];
+  if (typeof window[injectConfig.webpack] === 'undefined') {
+    window[injectConfig.webpack] = [];
+  }
+  while (true) {
+    const last = window[injectConfig.webpack].length - 1;
+    if (
+      !window[injectConfig.webpack][last][0].includes(injectConfig.parasite) &&
+      document.querySelectorAll('#app .two').length
+    ) {
+      injectParasite();
+      break;
+    }
+    await sleep(2000);
+  }
+})();
 
 if (typeof window.WAPI === 'undefined') {
-  window.WAPI = {
-    lastRead: {}
-  };
+  window.WAPI = {};
+
+  //Community
+  window.WAPI.createCommunity = createCommunity;
 
   //others
   window.WAPI.interfaceMute = interfaceMute;
   window.WAPI.checkIdMessage = checkIdMessage;
   window.WAPI.returnReply = returnReply;
-  window.WAPI.checkChat = checkChat;
+  window.WAPI.getStore = getStore;
+  window.WAPI.setNewMessageId = setNewMessageId;
+  window.WAPI.sendButtons = sendButtons;
   window.WAPI.checkNumberStatus = checkNumberStatus;
   window.WAPI.sendCheckType = sendCheckType;
+  window.WAPI.sendListMenu = sendListMenu;
+  window.WAPI.getStateConnection = getStateConnection;
+  window.WAPI.sleep = sleep;
   window.WAPI.isBeta = isBeta;
 
   //Profile
@@ -259,7 +224,9 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.scope = scope;
   window.WAPI.getchatId = getchatId;
   window.WAPI.sendExist = sendExist;
+  window.WAPI.returnChat = returnChat;
   window.WAPI.pinChat = pinChat;
+  window.WAPI.archiveChat = archiveChat;
 
   // Layout Functions
   window.WAPI.setTheme = setTheme;
@@ -272,6 +239,9 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI._serializeMessageObj = _serializeMessageObj;
   window.WAPI._serializeProfilePicThumb = _serializeProfilePicThumb;
   window.WAPI._serializeMeObj = _serializeMeObj;
+  window.WAPI._serializeForcing = _serializeForcing;
+
+  window.WAPI.onlySendAdmin = onlySendAdmin;
 
   // Group Functions
   window.WAPI.createGroup = createGroup;
@@ -286,21 +256,20 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.demoteParticipant = demoteParticipant;
   window.WAPI.joinGroup = joinGroup;
   window.WAPI.setGroupDescription = setGroupDescription;
+  window.WAPI.setPresenceOnline = setPresenceOnline;
+  window.WAPI.setPresenceOffline = setPresenceOffline;
   window.WAPI.setGroupTitle = setGroupTitle;
   window.WAPI.setGroupSettings = setGroupSettings;
 
   // Chatting functions
-  window.WAPI.sendListMenu = sendListMenu;
   window.WAPI.sendChatstate = sendChatstate;
   window.WAPI.sendMessageWithThumb = sendMessageWithThumb;
   window.WAPI.processMessageObj = processMessageObj;
   window.WAPI.sendMessageWithTags = sendMessageWithTags;
   window.WAPI.sendMessage = sendMessage;
   window.WAPI.sendMessage2 = sendMessage2;
-  window.WAPI.sendSeen = sendSeen;
   window.WAPI.deleteConversation = deleteConversation;
-  window.WAPI.deleteMessagesAll = deleteMessagesAll;
-  window.WAPI.deleteMessagesMe = deleteMessagesMe;
+  window.WAPI.deleteMessages = deleteMessages;
   window.WAPI.clearChatMessages = clearChatMessages;
   window.WAPI.sendImage = sendImage;
   window.WAPI.sendPtt = sendPtt;
@@ -319,14 +288,23 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.sendImageAsSticker = sendImageAsSticker;
   window.WAPI.sendImageAsStickerGif = sendImageAsSticker;
   window.WAPI.startTyping = startTyping;
-  window.WAPI.stopTyping = stopTyping;
+  window.WAPI.startRecording = startRecording;
+  window.WAPI.markPaused = markPaused;
+  window.WAPI.clearPresence = clearPresence;
+  window.WAPI.presenceAvailable = presenceAvailable;
+  window.WAPI.presenceUnavailable = presenceUnavailable;
   window.WAPI.sendLocation = sendLocation;
   window.WAPI.openChat = openChat;
   window.WAPI.openChatAt = openChatAt;
   window.WAPI.markUnseenMessage = markUnseenMessage;
+  window.WAPI.markMarkSeenMessage = markMarkSeenMessage;
   window.WAPI.sendLinkPreview = sendLinkPreview;
   window.WAPI.sendMessageOptions = sendMessageOptions;
-  window.WAPI.sendButtons = sendButtons;
+  window.WAPI.getAllMessagesDate = getAllMessagesDate;
+  window.WAPI.sendReactions = sendReactions;
+  window.WAPI.addChatWapi = addChatWapi;
+  window.WAPI.sendTypeButtons = sendTypeButtons;
+  window.WAPI.sendPollCreation = pollCreation;
 
   //////block functions
   window.WAPI.blockContact = blockContact;
@@ -338,11 +316,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.getMyContacts = getMyContacts;
   window.WAPI.getContact = getContact;
   window.WAPI.getAllChats = getAllChats;
-  window.WAPI.haveNewMsg = hasUndreadMessages;
-  window.WAPI.getAllChatsWithNewMsg = getAllChatsWithNewMessages;
   window.WAPI.getAllChatIds = getAllChatIds;
-  window.WAPI.getAllNewMessages = getAllNewMessages;
-  window.WAPI.getAllUnreadMessages = getAllUnreadMessages;
   window.WAPI.getAllChatsWithMessages = getAllChatsWithMessages;
   window.WAPI.getAllGroups = getAllGroups;
   window.WAPI.getChat = getChat;
@@ -350,16 +324,13 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.getChatByName = getChatByName;
   window.WAPI.getNewId = getNewId;
   window.WAPI.getChatById = getChatById;
-  window.WAPI.getUnreadMessagesInChat = getUnreadMessagesInChat;
   window.WAPI.loadEarlierMessages = loadChatEarlierMessages;
   window.WAPI.loadAllEarlierMessages = loadAllEarlierMessages;
   window.WAPI.asyncLoadAllEarlierMessages = asyncLoadAllEarlierMessages;
   window.WAPI.areAllMessagesLoaded = areAllMessagesLoaded;
   window.WAPI.loadEarlierMessagesTillDate = loadEarlierMessagesTillDate;
   window.WAPI.getAllGroupMetadata = getAllGroupMetadata;
-  window.WAPI.getGroupMetadata = getGroupMetadata;
-  window.WAPI._getGroupParticipants = _getGroupParticipants;
-  window.WAPI.getGroupParticipantIDs = getGroupParticipantIDs;
+  window.WAPI.getGroupParticipant = getGroupParticipant;
   window.WAPI.getAllMessagesInChat = getAllMessagesInChat;
   window.WAPI.loadAndGetAllMessagesInChat = loadAndGetAllMessagesInChat;
   window.WAPI.getUnreadMessages = getUnreadMessages;
@@ -506,7 +477,7 @@ if (typeof window.WAPI === 'undefined') {
   };
 
   window.WAPI.takeOver = async function () {
-    await Store.State.default.takeover();
+    await window.Store.State.Socket.takeover();
     return true;
   };
 
@@ -518,29 +489,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.onIncomingCall = function (callback) {
     window.WAPI.waitForStore(['Call'], () => {
       window.Store.Call.on('add', callback);
-    });
-    return true;
-  };
-
-  /**
-   * Registers a callback to be called when the interface change
-   * @param callback - function - Callback function to be called upon interface change. returns a call object.
-   * @returns {boolean}
-   */
-  window.WAPI.onInterfaceChange = function (callback) {
-    window.WAPI.waitForStore('Stream', () => {
-      const getData = () => ({
-        displayInfo: window.Store.Stream.displayInfo,
-        mode: window.Store.Stream.mode,
-        info: window.Store.Stream.info
-      });
-      callback(getData());
-      window.Store.Stream.on(
-        'change:info change:displayInfo change:mode',
-        () => {
-          callback(getData());
-        }
-      );
     });
     return true;
   };
@@ -587,11 +535,20 @@ if (typeof window.WAPI === 'undefined') {
     return await all;
   };
 
+  addOnPoll();
+
+  addNewMessagesListener();
+
+  addonUnreadMessage();
+  addonFilePicThumb();
+  addonChatState();
+
   addOnStreamChange();
   addOnStateChange();
+  addOnStream();
+
   initNewMessagesListener();
-  addNewMessagesListener();
-  allNewMessagesListener();
+
   addOnNewAcks();
   addOnAddedToGroup();
   addOnLiveLocation();
