@@ -1,64 +1,8 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
 import {
   Chat,
   Contact,
   ContactStatus,
   GroupCreation,
-  HostDevice,
-  Id,
   Message,
   PartialMessage,
   SendFileResult,
@@ -66,11 +10,10 @@ import {
   SendStickerResult,
   WhatsappProfile
 } from '../api/model';
-import { tokenSession } from '../config/tokenSession.config';
 
 interface WAPI {
   addParticipant: (groupId: string, contactId: string | string[]) => boolean;
-  allNewMessagesListener: (callback: Function) => void;
+  onAnyMessage: (callback: Function) => void;
   archiveChat: (chatId: string, option: boolean) => boolean;
   arrayBufferToBase64: (buffer: ArrayBuffer) => string;
   blockContact: (messageId: string) => boolean;
@@ -81,16 +24,7 @@ interface WAPI {
     contactId: string | string[]
   ) => GroupCreation;
   deleteConversation: (chatId: string) => boolean;
-  deleteMessagesAll: (
-    contactId: string,
-    messageId: string[],
-    onlyLocal: boolean
-  ) => Promise<object>;
-  deleteMessagesMe: (
-    contactId: string,
-    messageId: string[],
-    onlyLocal: boolean
-  ) => Promise<object>;
+  deleteMessages: (contactId: string, messageId: string[]) => Promise<object>;
   demoteParticipant: (groupId: string, contactId: string | string[]) => void;
   downloadFile: (data: string) => Promise<string | boolean>;
   downloadMedia: (messageId: string) => Promise<string>;
@@ -99,7 +33,7 @@ interface WAPI {
     messages: string | string[],
     skipMyMessages: boolean
   ) => Promise<object>;
-  getAllChats: () => Chat[];
+  getAllChats: () => Promise<Chat[] | object[]>;
   getAllChatsWithMessages: (withNewMessageOnly?: boolean) => Chat[];
   getAllChatsWithNewMsg: () => Chat[];
   getAllContacts: () => Contact[];
@@ -108,9 +42,14 @@ interface WAPI {
     includeMe: boolean,
     includeNotifications: boolean
   ) => Message[];
-  isBeta: () => boolean;
-  getAllNewMessages: () => Message[];
-  getAllUnreadMessages: () => PartialMessage[];
+  getAllMessagesDate: (
+    chatId: string,
+    type: string,
+    idateStart: string,
+    time: string,
+    limit: number
+  ) => Message[];
+
   getBatteryLevel: () => number;
   getBlockList: () => Contact[];
   getBusinessProfilesProducts: (to: string) => any;
@@ -119,29 +58,29 @@ interface WAPI {
   getChatIsOnline: (chatId: string) => Promise<boolean>;
   getLastSeen: (chatId: string) => Promise<number | boolean>;
   getContact: (contactId: string) => Contact;
-  getGroupAdmins: (groupId: string) => Contact[];
+  getGroupAdmins: (groupId: string) => Object;
   getGroupInfoFromInviteLink: (inviteCode: string) => Promise<string | boolean>;
   getGroupInviteLink: (chatId: string) => Promise<string>;
   revokeGroupInviteLink: (chatId: string) => Promise<boolean>;
-  getGroupParticipantIDs: (groupId: string) => Id[];
-  getHost: () => HostDevice;
+  getGroupParticipant: (groupId: string, time: string) => Object;
+  getHost: () => any; //HostDevice;
   getListMute: (type?: string) => object;
+  getStateConnection: () => String;
+  getNewMessageId: (chatId: string) => Object;
   getMessageById: (messageId: string) => Promise<Message>;
-  getNumberProfile: (contactId: string) => WhatsappProfile;
+  getNumberProfile: (contactId: string) => Object;
   getProfilePicFromServer: (chatId: string) => string;
-  getSessionTokenBrowser: (removePath?: boolean) => tokenSession;
   getStatus: (contactId: string) => ContactStatus;
   getTheme: () => string;
-  getUnreadMessages: (
-    includeMe: boolean,
-    includeNotifications: boolean,
-    useUnreadCount: boolean
-  ) => any;
+  getUnreadMessages: (unread: boolean) => any;
   getWAVersion: () => string;
   isConnected: () => boolean;
   isLoggedIn: () => boolean;
+  isBeta: () => boolean;
   joinGroup: (groupId: string) => Promise<string | boolean>;
   killServiceWorker: () => boolean;
+  setPresenceOffline: () => boolean;
+  setPresenceOnline: () => boolean;
   leaveGroup: (groupId: string) => any;
   loadAndGetAllMessagesInChat: (
     chatId: string,
@@ -150,15 +89,18 @@ interface WAPI {
   ) => Message[];
   loadEarlierMessages: (contactId: string) => Message[];
   logout: () => Promise<boolean>;
-  markUnseenMessage: (messageId: string) => boolean;
+  markUnseenMessage: (chatId: string) => boolean;
+  markMarkSeenMessage: (chatId: string) => boolean;
   onAddedToGroup: (callback: Function) => any;
   onIncomingCall: (callback: Function) => any;
   onInterfaceChange: (callback: Function) => void;
   onMessage: (callback: Function) => void;
+  onAck: (callback: Function) => void;
+  onPoll: (callback: Function) => void;
   onLiveLocation: (chatId: string, callback: Function) => any;
   onParticipantsChanged: (groupId: string, callback: Function) => any;
   onStateChange: (callback: Function) => void;
-  openChat: (chatId: string) => boolean;
+  openChat: (chatId: string, force?: string | boolean) => boolean;
   openChatAt: (
     chatId: string,
     messageId: string
@@ -172,10 +114,10 @@ interface WAPI {
   removeParticipant: (groupId: string, contactId: string | string[]) => void;
   reply: (to: string, content: string, quotedMsg: string) => Promise<object>;
   restartService: () => boolean;
-  sendChatstate: (chatState: string, chatId: string) => void;
+  sendChatstate: (chatState: string | any, chatId: string) => void;
   sendContactVcard: (
     to: string,
-    contact: string,
+    contact: string | string[],
     name?: string
   ) => Promise<object>;
   sendContactVcardList: (to: string, contacts: string[]) => Promise<object>;
@@ -184,13 +126,21 @@ interface WAPI {
     to: string,
     filename: string,
     caption: string,
-    type?: string
+    type?: string,
+    status?: boolean,
+    passId?: Object,
+    checkNumber?: boolean,
+    forcingReturn?: boolean,
+    delSend?: boolean
   ) => Promise<SendFileResult>;
   sendImage: (
     imgBase64: string,
     to: string,
     filename: string,
-    caption?: string
+    caption?: string,
+    type?: string | boolean,
+    status?: boolean,
+    passId?: Object
   ) => Promise<SendFileResult>;
   sendImageAsSticker: (
     webpBase64: string,
@@ -221,7 +171,6 @@ interface WAPI {
     longitude: string,
     title: string
   ) => Promise<object>;
-  sendMessage: (to: string, content: string) => Promise<Object>;
   sendListMenu: (
     to: string,
     title: string,
@@ -230,29 +179,51 @@ interface WAPI {
     buttonText: string,
     menu: Array<any>
   ) => Promise<Object>;
-  checkChat: (contactId: string) => Promise<Object>;
+  sendMessage: (
+    to: string,
+    content: string,
+    status?: boolean,
+    passId?: Object,
+    checkNumber?: boolean,
+    forcingReturn?: boolean,
+    delSend?: boolean
+  ) => Promise<Object>;
+  sendButtons: (
+    to: string,
+    title: string,
+    subtitle: string,
+    buttons: object
+  ) => Promise<object>;
+  sendTypeButtons(
+    to: string,
+    title: string,
+    subtitle: string,
+    footer: string,
+    buttons: any
+  ): Promise<object>;
   sendMessageMentioned: (...args: any) => any;
   sendMessageOptions: (
     chat: any,
     content: any,
     options?: any
   ) => Promise<string>;
-  sendButtons: (
-    to: string,
-    title: string,
-    buttons: [],
-    subtitle: string
-  ) => Promise<Object>;
+  onlySendAdmin: (chatId: string, type: boolean) => Promise<any>;
   sendMessageWithThumb: (
     thumb: string,
     url: string,
     title: string,
     description: string,
-    text: string,
     chatId: string
   ) => void;
   sendMute: (id: string, time: number, type: string) => Promise<object>;
-  sendPtt: (base64: string, to: string) => any;
+  sendPtt: (
+    base64: string,
+    to: string,
+    passId?: object,
+    checkNumber?: boolean,
+    forcingReturn?: boolean,
+    delSend?: boolean
+  ) => any;
   sendVideoAsGif: (
     base64: string,
     to: string,
@@ -262,25 +233,36 @@ interface WAPI {
   setMessagesAdminsOnly: (chatId: string, option: boolean) => boolean;
   setMyName: (name: string) => void;
   setMyStatus: (to: string) => void;
-  setProfilePic: (path: string, to?: string) => Promise<boolean>;
-  setTheme: (theme?: string) => boolean;
-  startTyping: (to: string) => void;
-  stopTyping: (to: string) => void;
-  takeOver: () => boolean;
-  unblockContact: (messageId: string) => boolean;
-  waitForStore: (store: string | string[], callback?: Function) => Promise<any>;
-  waitNewAcknowledgements: (callback: Function) => void;
-  waitNewMessages: (rmCallback: boolean, callback: Function) => void;
-  sendSeen: (to: string) => void;
-  returnReply: (message: object) => object;
-  onStreamChange: (callback: Function) => void;
-  setGroupDescription: (groupId: string, description: string) => object;
+  setProfilePic: (path: string | object, to?: string) => Promise<boolean>;
   setGroupTitle: (groupId: string, title: string) => object;
   setGroupSettings: (
     groupId: string,
     settings: string,
     value: boolean
   ) => Promise<object>;
+  setTheme: (theme?: string) => boolean;
+  startTyping: (to: string, checkNumber: boolean) => void;
+  startRecording: (to: string, checkNumber: boolean) => void;
+  markPaused: (to: string, checkNumber: boolean) => void;
+  clearPresence: (to: string) => void;
+  presenceAvailable: () => void;
+  presenceUnavailable: () => void;
+  takeOver: () => boolean;
+  unblockContact: (messageId: string) => boolean;
+  waitForStore: (store: string | string[], callback?: Function) => Promise<any>;
+  waitNewAcknowledgements: (callback: Function) => void;
+  waitNewMessages: (rmCallback: boolean, callback: Function) => void;
+  returnReply: (message: object) => object;
+  onStreamChange: (callback: Function) => void;
+  onFilePicThumb: (callback: Function) => void;
+  onChatState: (callback: Function) => void;
+  onUnreadMessage: (callback: Function) => void;
+  setGroupDescription: (groupId: string, description: string) => object;
+  sendReactions: (IdMessage: string, emoji: String) => void;
+  addChatWapi: () => void;
+  processMessageObj: (a: any, b: any, c: any) => any;
+  createCommunity: (name: string, description: string) => void;
+  sendPollCreation: (to: string, poll: any) => void;
 }
 
 declare global {

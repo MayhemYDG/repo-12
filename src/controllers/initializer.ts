@@ -1,96 +1,89 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
-
-import * as chalk from 'chalk';
-
-import { readFileSync } from 'fs';
-
-import { Browser, Page } from 'puppeteer';
-
-import { deleteFiles, checkingCloses } from '../api/helpers';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
-import { tokenSession } from '../config/tokenSession.config';
-import { checkFileJson } from '../api/helpers/check-token-file';
-import { SocketState, SocketStream } from '../api/model/enum';
-import { SessionTokenCkeck, saveToken, isBeta } from './auth';
-import { initWhatsapp, initBrowser, injectApi } from './browser';
+import { initWhatsapp, initBrowser, statusLog } from './browser';
 import { welcomeScreen } from './welcome';
-const path = require('path');
+import { getSpinnies } from '../utils/spinnies';
+import {
+  SocketState,
+  SocketStream,
+  InterfaceMode,
+  InterfaceState
+} from '../api/model/enum';
+import { InterfaceChangeMode } from '../api/model';
+import { checkingCloses } from '../api/helpers';
+import { Browser, Page } from 'puppeteer';
+import { checkUpdates } from './check-up-to-date';
+
+declare global {
+  interface Window {
+    updater;
+  }
+}
 /**
  * A callback will be received, informing the status of the qrcode
  */
 export type CatchQR = (
   qrCode: string,
   asciiQR: string,
-  attempt: number,
+  attempt?: number,
   urlCode?: string
 ) => void;
 
 /**
  * A callback will be received, informing the customer's status
  */
-export type StatusFind = (statusGet: string, session: string) => void;
+export type StatusFind = (
+  statusGet: string,
+  session: string,
+  info?: string
+) => void;
 
 /**
  * A callback will be received, informing user about browser and page instance
  */
 export type BrowserInstance = (
   browser: string | Browser,
-  waPage: false | Page
+  waPage: false | Page,
+  client: Whatsapp
 ) => void;
+
+export type interfaceChange = (
+  statusGet: InterfaceStateChange | string,
+  session: string
+) => void;
+
+export enum InterfaceStateChange {
+  /**
+   * Client interface is loading page from qrcode
+   */
+  qrcodeOpening = 'qrcodeOpening',
+  /**
+   * Client interface is loading qrcode
+   */
+  qrcodeLoading = 'qrcodeLoading',
+  /**
+   * QR code ready to be read!
+   */
+  qrcodeNormal = 'qrcodeNormal',
+  /**
+   * Client interface is loading page from syncing
+   */
+  syncingOpening = 'syncingOpening',
+  /**
+   * Client interface is loading syncing
+   */
+  syncingLoading = 'syncingLoading',
+  /**
+   * Syncing ready to be read!
+   */
+  syncingNormal = 'syncingNormal',
+  /**
+   * The customer is in the chat
+   */
+  chatsAvailable = 'chatsAvailable'
+}
+
+export type ReconnectQrcode = (client: Whatsapp) => void;
 
 export interface CreateOptions extends CreateConfig {
   /**
@@ -106,13 +99,13 @@ export interface CreateOptions extends CreateConfig {
    */
   statusFind?: StatusFind;
   /**
-   * Pass the session token information you can receive this token with the await client.getSessionTokenBrowser () function
-   */
-  browserSessionToken?: tokenSession;
-  /**
    * A callback will be received, informing user about browser and page instance
    */
   browserInstance?: BrowserInstance;
+  /**
+   * A callback will be received, customer interface information
+   */
+  interfaceChange?: interfaceChange;
 }
 
 /**
@@ -125,13 +118,15 @@ export async function create(createOption: CreateOptions): Promise<Whatsapp>;
  * You must pass a string type parameter, this parameter will be the name of the client's session. If the parameter is not passed, the section name will be "session".
  * @returns Whatsapp page, with this parameter you will be able to access the bot functions
  */
+
 export async function create(
   sessionName: string,
   catchQR?: CatchQR,
   statusFind?: StatusFind,
   options?: CreateConfig,
-  browserSessionToken?: tokenSession,
-  browserInstance?: BrowserInstance
+  browserInstance?: BrowserInstance,
+  reconnectQrcode?: ReconnectQrcode,
+  interfaceChange?: interfaceChange
 ): Promise<Whatsapp>;
 
 export async function create(
@@ -139,312 +134,323 @@ export async function create(
   catchQR?: CatchQR,
   statusFind?: StatusFind,
   options?: CreateConfig,
-  browserSessionToken?: tokenSession,
-  browserInstance?: BrowserInstance
-): Promise<Whatsapp> {
+  browserInstance?: BrowserInstance,
+  reconnectQrcode?: ReconnectQrcode,
+  interfaceChange?: interfaceChange
+): Promise<any> {
   let session = 'session';
+  return new Promise(async (resolve, reject) => {
+    if (
+      typeof sessionOrOption === 'string' &&
+      sessionOrOption.replace(/\s/g, '').length
+    ) {
+      session = sessionOrOption.replace(/\s/g, '');
+    } else if (typeof sessionOrOption === 'object') {
+      session = sessionOrOption.session || session;
+      catchQR = sessionOrOption.catchQR || catchQR;
+      statusFind = sessionOrOption.statusFind || statusFind;
+      browserInstance = sessionOrOption.browserInstance || browserInstance;
+      options = sessionOrOption;
+    }
 
-  if (
-    typeof sessionOrOption === 'string' &&
-    sessionOrOption.replace(/\s/g, '').length
-  ) {
-    session = sessionOrOption.replace(/\s/g, '');
-  } else if (typeof sessionOrOption === 'object') {
-    session = sessionOrOption.session || session;
-    catchQR = sessionOrOption.catchQR || catchQR;
-    statusFind = sessionOrOption.statusFind || statusFind;
-    browserSessionToken =
-      sessionOrOption.browserSessionToken || browserSessionToken;
-    browserInstance = sessionOrOption.browserInstance || browserInstance;
-    options = sessionOrOption;
-  }
-  let browserToken: any;
+    await checkUpdates();
 
-  const mergedOptions = { ...defaultOptions, ...options };
-
-  const logger = mergedOptions.logger;
-
-  if (!mergedOptions.disableWelcome) {
-    welcomeScreen();
-  }
-
-  logger.info(`${chalk.underline('https://orkestral.io - official site!')}\n`);
-
-  statusFind && statusFind('initBrowser', this.session);
-
-  // Initialize whatsapp
-  if (mergedOptions.browserWS) {
-    logger.info(`Waiting... checking the wss server...`, { session });
-  } else {
-    logger.info('Waiting... checking the browser...', { session });
-  }
-
-  const browser = await initBrowser(session, mergedOptions, logger);
-  // Erro of connect wss
-  if (typeof browser === 'string' && browser === 'connect') {
-    logger.info('Error when try to connect ' + mergedOptions.browserWS, {
-      session
-    });
-    statusFind && statusFind('serverWssNotConnected', this.session);
-    throw `Error when try to connect ${mergedOptions.browserWS}`;
-  }
-
-  // Erro open browser
-  if (typeof browser === 'string' && browser === 'launch') {
-    logger.info('Error no open browser.... ', {
-      session
-    });
-    statusFind && statusFind('noOpenBrowser', this.session);
-    throw `Error no open browser....`;
-  }
-
-  if (mergedOptions.browserWS) {
-    logger.info('Has been properly connected to the wss server', {
-      session
-    });
-    statusFind && statusFind('connectBrowserWs', this.session);
-  } else {
-    statusFind && statusFind('openBrowser', this.session);
-    logger.info('Browser successfully opened', {
-      session
-    });
-  }
-
-  if (!mergedOptions.browserWS) {
-    logger.info('checking headless...', {
-      session
+    const spinnies = getSpinnies({
+      disableSpins: options ? options.disableSpins : false
     });
 
-    if (mergedOptions.headless) {
-      logger.info('headless option is active, browser hidden', {
-        session
+    const mergedOptions = { ...defaultOptions, ...options };
+
+    if (!mergedOptions.disableWelcome) {
+      welcomeScreen();
+    }
+
+    statusFind && statusFind('initBrowser', session);
+
+    // Initialize whatsapp
+    if (mergedOptions.browserWS) {
+      spinnies.add(`browser-${session}`, {
+        text: `Waiting... checking the wss server...`
       });
     } else {
-      logger.info('headless option is disabled, browser visible', {
-        session
-      });
-    }
-  }
-
-  if (typeof browser === 'object') {
-    if (!mergedOptions.browserWS && browser['_process']) {
-      browser['_process'].once('close', () => {
-        browser['isClose'] = true;
+      spinnies.add(`browser-${session}`, {
+        text: 'Waiting... checking the browser...'
       });
     }
 
-    checkingCloses(browser, mergedOptions, (result) => {
-      statusFind && statusFind(result, session);
-    }).catch(() => {
-      throw 'The client has been closed';
-    });
+    const browser: Browser | boolean = await initBrowser(mergedOptions);
 
-    if (SessionTokenCkeck(browserSessionToken)) {
-      browserToken = browserSessionToken;
+    if (typeof browser === 'boolean') {
+      spinnies.fail(`browser-${session}`, {
+        text: `Error no open browser....`
+      });
+      statusFind && statusFind('noOpenBrowser', session);
+      return reject(`Error no open browser....`);
     }
 
-    logger.info('Checking page...', {
-      session
-    });
-
-    statusFind && statusFind('initWhatsapp', this.session);
-    // Initialize whatsapp
-    const page: false | Page = await initWhatsapp(
-      session,
-      mergedOptions,
-      browser,
-      browserToken
-    );
-
-    if (browserInstance) {
-      browserInstance(browser, page);
+    if (mergedOptions.browserWS) {
+      statusFind && statusFind('connectBrowserWs', session);
+      spinnies.succeed(`browser-${session}`, {
+        text: `Has been properly connected to the wss server`
+      });
+    } else {
+      statusFind && statusFind('openBrowser', session);
+      spinnies.succeed(`browser-${session}`, {
+        text: `Browser successfully opened`
+      });
     }
 
-    if (page === false) {
-      logger.info('Error accessing the page: "https://web.whatsapp.com"', {
-        session
+    if (!mergedOptions.browserWS) {
+      spinnies.add(`browser-${session}`, {
+        text: 'checking headless...'
       });
 
-      statusFind && statusFind('erroPageWhatsapp', this.session);
-      throw 'Error when trying to access the page: "https://web.whatsapp.com"';
-    }
-
-    statusFind && statusFind('successPageWhatsapp', this.session);
-    logger.info(`${chalk.green('Page successfully accessed')}`, {
-      session
-    });
-
-    const client = new Whatsapp(page, session, mergedOptions);
-
-    client.onStreamChange(async (stateStream) => {
-      if (stateStream === SocketStream.CONNECTED) {
-        statusFind && statusFind('chatsAvailable', session);
+      if (mergedOptions.headless) {
+        spinnies.succeed(`browser-${session}`, {
+          text: 'headless option is active, browser hidden'
+        });
+      } else {
+        spinnies.succeed(`browser-${session}`, {
+          text: 'headless option is disabled, browser visible'
+        });
       }
-      if (stateStream === SocketStream.DISCONNECTED) {
-        await page.waitForFunction(
-          () => {
-            if (
-              document.querySelector('canvas') &&
-              document.querySelectorAll('._2Nr6U').length == 0
-            ) {
-              return true;
-            }
-          },
-          {
-            timeout: 0,
-            polling: 100
-          }
+    }
+
+    if (typeof browser === 'object') {
+      if (!mergedOptions.browserWS && browser['_process']) {
+        browser['_process'].once('close', () => {
+          browser['isClose'] = true;
+        });
+      }
+
+      checkingCloses(browser, mergedOptions, (result) => {
+        statusFind && statusFind(result, session);
+      }).catch(() => {
+        spinnies.fail(`whatzapp-${session}-close`, {
+          text: 'Closed Browser'
+        });
+        return reject('The client has been closed');
+      });
+
+      spinnies.add(`whatzapp-${session}`, {
+        text: 'Checking page to whatzapp...'
+      });
+
+      statusFind && statusFind('initWhatsapp', session);
+      // Initialize whatsapp
+      const page: false | Page = await initWhatsapp(mergedOptions, browser);
+
+      if (page === false) {
+        spinnies.fail(`whatzapp-${session}`, {
+          text: 'Error accessing the page: "https://web.whatsapp.com"'
+        });
+        statusFind && statusFind('erroPageWhatsapp', session);
+        return reject(
+          'Error when trying to access the page: "https://web.whatsapp.com"'
         );
-        if (checkFileJson(mergedOptions, session)) {
-          if (statusFind) {
-            statusFind('desconnectedMobile', session);
-          }
-          deleteFiles(mergedOptions, session, logger);
-        }
-      }
-    });
-
-    client.onStateChange(async (state) => {
-      if (state === SocketState.PAIRING) {
-        const device: Boolean = await page
-          .evaluate(() => {
-            if (
-              document.querySelector('[tabindex="-1"]') &&
-              window?.Store?.Stream?.mode == 'SYNCING' &&
-              window?.Store?.Stream?.obscurity == 'SHOW'
-            ) {
-              return true;
-            }
-            return false;
-          })
-          .catch(() => undefined);
-        if (device) {
-          const ckeckVersion = await isBeta(page);
-          if (ckeckVersion === false) {
-            await page.evaluate(async () => {
-              await window.Store.Login.triggerCriticalSyncLogout();
-            });
-          }
-          if (statusFind) {
-            statusFind('deviceNotConnected', session);
-          }
-        }
       }
 
-      if (mergedOptions.createPathFileToken) {
-        if (state === SocketState.CONNECTED) {
-          setTimeout(() => {
-            saveToken(page, session, mergedOptions).catch((e) => {
-              logger.info(e, {
-                session
-              });
-            });
-          }, 1000);
-        }
-      }
-    });
+      statusFind && statusFind('successPageWhatsapp', session);
 
-    page.on('dialog', async (dialog) => {
-      await dialog.accept();
-    });
-
-    if (mergedOptions.waitForLogin) {
-      if (mergedOptions.debug) {
-        console.log(`\nDebug: Option waitForLogin it's true. waiting...`);
-      }
-
-      statusFind && statusFind('waitForLogin', this.session);
-
-      const isLogged = await client.waitForLogin(catchQR, statusFind);
-
-      if (!isLogged) {
-        throw 'Not Logged';
-      }
-
-      let waitLoginPromise = null;
-      client.onStateChange(async (state) => {
-        if (
-          state === SocketState.UNPAIRED ||
-          state === SocketState.UNPAIRED_IDLE
-        ) {
-          if (!waitLoginPromise) {
-            waitLoginPromise = client
-              .waitForLogin(catchQR, statusFind)
-              .catch(() => {})
-              .finally(() => {
-                waitLoginPromise = null;
-              });
-          }
-          await waitLoginPromise;
-        }
+      spinnies.succeed(`whatzapp-${session}`, {
+        text: 'Page successfully accessed'
       });
-    }
 
-    if (mergedOptions.debug) {
-      const debugURL = `http://localhost:${readFileSync(
-        path.resolve(
-          process.cwd() + mergedOptions.mkdirFolderToken,
-          mergedOptions.folderNameToken,
-          session,
-          'DevToolsActivePort'
-        )
-      ).slice(0, -54)}`;
-      console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
-    }
+      try {
+        spinnies.add(`whatzapp-intro-${session}`, {
+          text: 'waiting for introduction'
+        });
+      } catch {}
 
-    if (mergedOptions.debug) {
-      console.log(
-        `\nDebug: Init WP app... waitForFunction "Store" ... this might take a while`
-      );
-    }
+      statusLog(page, spinnies, session, (event) => {
+        try {
+          spinnies.add(`whatzapp-intro-${session}`, {
+            text: event
+          });
+        } catch {}
+        statusFind && statusFind('introductionHistory', session, event);
+      });
 
-    statusFind && statusFind('waitChat', this.session);
+      const client = new Whatsapp(browser, page, session, mergedOptions);
 
-    await page.waitForSelector('#app .two', { visible: true }).catch(() => {});
+      if (browserInstance) {
+        browserInstance(browser, page, client);
+      }
 
-    if (mergedOptions.debug) {
-      console.log(
-        `\nDebug: Loading wp app... waitForFunction "Store" ... this might take a while also`
-      );
-    }
+      client.onInterfaceChange(async (interFace: InterfaceChangeMode) => {
+        try {
+          if (interFace.mode === InterfaceMode.MAIN) {
+            interfaceChange && interfaceChange('chatsAvailable', session);
+            spinnies.add(`whatzapp-mode-main-${session}`, {
+              text: 'opening main page...'
+            });
 
-    await page
-      .waitForFunction(
-        () => {
-          if (mergedOptions.debug) {
-            console.log(`\nDebug: Loading wp app....`);
+            spinnies.succeed(`whatzapp-mode-main-${session}`, {
+              text: 'Successfully main page!'
+            });
+
+            spinnies.succeed(`whatzapp-mode-syncing-${session}`, {
+              text: 'Successfully sync!'
+            });
+
+            await client.initService();
+            await client.addChatWapi();
           }
-          const StoreKey = Object.keys(window).find(
-            (k) =>
-              !!Object.getOwnPropertyDescriptor(window[k], 'WidFactory') &&
-              !!Object.getOwnPropertyDescriptor(
-                window[k].WidFactory,
-                'createWid'
-              )
-          );
-          if (StoreKey) {
-            window.Store = window[StoreKey];
-            return true;
+
+          if (interFace.mode === InterfaceMode.SYNCING) {
+            if (interFace.info === InterfaceState.OPENING) {
+              interfaceChange && interfaceChange('syncingOpening', session);
+              spinnies.add(`whatzapp-mode-syncing-${session}`, {
+                text: 'opening sync page...'
+              });
+            }
+
+            if (interFace.info === InterfaceState.PAIRING) {
+              interfaceChange && interfaceChange('syncingLoading', session);
+              spinnies.add(`whatzapp-mode-syncing-${session}`, {
+                text: 'Loading sync...'
+              });
+            }
+
+            if (interFace.info === InterfaceState.NORMAL) {
+              interfaceChange && interfaceChange('syncingNormal', session);
+              spinnies.succeed(`whatzapp-mode-syncing-${session}`, {
+                text: 'Successfully sync!'
+              });
+            }
           }
-          return false;
-        },
-        {
-          timeout: 0,
-          polling: 100
+
+          if (interFace.mode === InterfaceMode.QR) {
+            const status = await page.evaluate(
+              () => window?.Store?.State?.Socket?.stream
+            );
+            if (status === SocketStream.DISCONNECTED) {
+              spinnies.add(`whatzapp-disconnected-${session}`, {
+                text: 'checking...'
+              });
+
+              spinnies.fail(`whatzapp-disconnected-${session}`, {
+                text: 'Was disconnected!'
+              });
+              statusFind && statusFind('desconnected', session);
+            }
+
+            if (interFace.info === InterfaceState.OPENING) {
+              interfaceChange && interfaceChange('qrcodeOpening', session);
+              spinnies.add(`whatzapp-mode-qr-${session}`, {
+                text: 'Opening QR Code page...'
+              });
+            }
+
+            if (interFace.info === InterfaceState.PAIRING) {
+              interfaceChange && interfaceChange('qrcodeLoading', session);
+              spinnies.add(`whatzapp-mode-qr-${session}`, {
+                text: 'Loading QR Code...'
+              });
+            }
+
+            if (interFace.info === InterfaceState.NORMAL) {
+              interfaceChange && interfaceChange('qrcodeNormal', session);
+              spinnies.succeed(`whatzapp-mode-qr-${session}`, {
+                text: 'Successfully loaded QR Code!'
+              });
+            }
+          }
+        } catch {}
+      });
+
+      client
+        .onStreamChange(async (stateStream: SocketStream) => {
+          if (stateStream === SocketStream.CONNECTED) {
+            try {
+              spinnies.succeed(`whatzapp-intro-${session}`, {
+                text: 'Successfully connected!'
+              });
+            } catch {}
+          }
+
+          if (stateStream === SocketStream.DISCONNECTED) {
+            const mode = await page
+              .evaluate(() => window?.Store?.Stream?.mode)
+              .catch(() => {});
+            if (mode === InterfaceMode.QR) {
+              if (statusFind) {
+                spinnies.add(`whatzapp-qr-${session}`, {
+                  text: 'check....'
+                });
+                statusFind('desconnectedMobile', session);
+                spinnies.fail(`whatzapp-qr-${session}`, {
+                  text: 'Disconnected by cell phone!'
+                });
+              }
+            }
+          }
+        })
+        .catch();
+
+      client
+        .onStateChange(async (state) => {
+          if (state === SocketState.PAIRING) {
+            if (statusFind) {
+              statusFind('deviceNotConnected', session);
+            }
+          }
+        })
+        .catch();
+
+      page.on('dialog', async (dialog) => {
+        await dialog.accept();
+      });
+
+      if (mergedOptions.waitForLogin) {
+        const isLogged = await client
+          .waitForLogin(catchQR, statusFind)
+          .catch(() => undefined);
+
+        statusFind && statusFind('waitForLogin', session);
+
+        if (!isLogged) {
+          return reject('Not Logged');
         }
-      )
-      .catch(() => {});
 
-    if (mergedOptions.debug) {
-      console.log(`\nDebug: injecting Api ...`);
+        let waitLoginPromise = null;
+        client
+          .onStateChange(async (state) => {
+            if (
+              state === SocketState.UNPAIRED ||
+              state === SocketState.UNPAIRED_IDLE
+            ) {
+              if (!waitLoginPromise) {
+                waitLoginPromise = client
+                  .waitForLogin(catchQR, statusFind)
+                  .then(() => {
+                    if (reconnectQrcode) {
+                      reconnectQrcode(client);
+                    }
+                  })
+                  .catch(() => {})
+                  .finally(() => {
+                    waitLoginPromise = null;
+                  });
+              }
+              await waitLoginPromise;
+            }
+          })
+          .catch();
+      }
+
+      statusFind && statusFind('waitChat', session);
+
+      await page
+        .waitForSelector('#app .two', { visible: true })
+        .catch(() => {});
+
+      await client.initService();
+      await client.addChatWapi();
+
+      statusFind && statusFind('successChat', session);
+
+      return resolve(client);
     }
-
-    await injectApi(page);
-
-    if (mergedOptions.debug) {
-      console.log(`\nDebug: injecting Api done...`);
-    }
-    statusFind && statusFind('successChat', this.session);
-    return client;
-  }
+  });
 }
