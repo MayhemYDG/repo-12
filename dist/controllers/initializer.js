@@ -46,6 +46,7 @@ async function create(sessionOrOption, catchQR, statusFind, options, browserInst
         if (typeof sessionOrOption === 'string' &&
             sessionOrOption.replace(/\s/g, '').length) {
             session = sessionOrOption.replace(/\s/g, '');
+            options = { session };
         }
         else if (typeof sessionOrOption === 'object') {
             session = sessionOrOption.session || session;
@@ -53,6 +54,11 @@ async function create(sessionOrOption, catchQR, statusFind, options, browserInst
             statusFind = sessionOrOption.statusFind || statusFind;
             browserInstance = sessionOrOption.browserInstance || browserInstance;
             options = sessionOrOption;
+        }
+        const requiredNodeVersion = 16;
+        const currentNodeVersion = Number(process.versions.node.split('.')[0]);
+        if (currentNodeVersion < requiredNodeVersion) {
+            return reject(`Outdated Node.js version. Node.js ${requiredNodeVersion} or higher is required. Please update Node.js.`);
         }
         await (0, check_up_to_date_1.checkUpdates)();
         const spinnies = (0, spinnies_1.getSpinnies)({

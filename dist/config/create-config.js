@@ -5,7 +5,7 @@ const puppeteer_config_1 = require("./puppeteer.config");
 exports.defaultOptions = {
     folderNameToken: 'tokens',
     mkdirFolderToken: '',
-    headless: true,
+    headless: 'new',
     devtools: false,
     debug: false,
     logQR: true,

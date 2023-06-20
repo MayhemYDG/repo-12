@@ -28,6 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.statusLog = exports.initBrowser = exports.folderSession = exports.getWhatsappPage = exports.initWhatsapp = void 0;
 const ChromeLauncher = __importStar(require("chrome-launcher"));
+const chrome_version_1 = __importDefault(require("chrome-version"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const puppeteer_extra_1 = __importDefault(require("puppeteer-extra"));
@@ -90,34 +91,88 @@ async function getWhatsappPage(browser) {
 }
 exports.getWhatsappPage = getWhatsappPage;
 function folderSession(options) {
-    const folderSession = path.join(path.resolve(process.cwd(), options.mkdirFolderToken, options.folderNameToken, options.session));
-    if (!fs.existsSync(folderSession)) {
-        fs.mkdirSync(folderSession, {
-            recursive: true
-        });
+    try {
+        if (!options || !options.folderNameToken || !options.session) {
+            throw new Error(`Missing required options`);
+        }
+        const folderSession = options.mkdirFolderToken
+            ? path.join(path.resolve(process.cwd(), options.mkdirFolderToken, options.folderNameToken, options.session))
+            : path.join(path.resolve(process.cwd(), options.folderNameToken, options.session));
+        if (!fs.existsSync(folderSession)) {
+            fs.mkdirSync(folderSession, { recursive: true });
+        }
+        const folderMulidevice = options.mkdirFolderToken
+            ? path.join(path.resolve(process.cwd(), options.mkdirFolderToken, options.folderNameToken))
+            : path.join(path.resolve(process.cwd(), options.folderNameToken));
+        if (!fs.existsSync(folderMulidevice)) {
+            fs.mkdirSync(folderMulidevice, { recursive: true });
+        }
+        fs.chmodSync(folderMulidevice, '777');
+        fs.chmodSync(folderSession, '777');
+        options.puppeteerOptions = {
+            userDataDir: folderSession,
+            ignoreHTTPSErrors: true
+        };
+        puppeteer_config_1.puppeteerConfig.chromiumArgs.push(`--user-data-dir=${folderSession}`);
+        return true;
     }
-    const folderMulidevice = path.join(path.resolve(process.cwd(), options.mkdirFolderToken, options.folderNameToken));
-    if (!fs.existsSync(folderMulidevice)) {
-        fs.mkdirSync(folderMulidevice, {
-            recursive: true
-        });
+    catch (error) {
+        console.error(error);
+        return false;
     }
-    fs.chmodSync(folderMulidevice, '777');
-    fs.chmodSync(folderSession, '777');
-    options.puppeteerOptions = {
-        userDataDir: folderSession,
-        ignoreHTTPSErrors: true
-    };
-    puppeteer_config_1.puppeteerConfig.chromiumArgs.push(`--user-data-dir=${folderSession}`);
 }
 exports.folderSession = folderSession;
+function isChromeInstalled(executablePath) {
+    try {
+        fs.accessSync(executablePath);
+        return true;
+    }
+    catch (_a) {
+        return false;
+    }
+}
+async function getGlobalChromeVersion() {
+    try {
+        const chromePath = ChromeLauncher.Launcher.getInstallations().pop();
+        if (chromePath) {
+            const version = await (0, chrome_version_1.default)(chromePath);
+            return version;
+        }
+    }
+    catch (e) {
+        console.error('Error retrieving Chrome version:', e);
+    }
+    return null;
+}
 async function initBrowser(options) {
     var _a, _b, _c;
     try {
-        folderSession(options);
+        const checkFolder = folderSession(options);
+        if (!checkFolder) {
+            console.error('Error executing client session info');
+            return false;
+        }
+        if (options.headless !== 'new' && options.headless !== false) {
+            console.error('Now use only headless: "new" or false');
+            return false;
+        }
         // Set the executable path to the path of the Chrome binary or the executable path provided
         const executablePath = (_a = getChrome()) !== null && _a !== void 0 ? _a : puppeteer_extra_1.default.executablePath();
-        console.log('Path Chrome: ', executablePath);
+        console.log('Path Google-Chrome: ', executablePath);
+        if (!executablePath && !isChromeInstalled(executablePath)) {
+            console.error('Could not find the google-chrome browser on the machine!');
+            return false;
+        }
+        let chromeVersion = '';
+        if (executablePath.includes('google-chrome')) {
+            chromeVersion = await getGlobalChromeVersion();
+        }
+        else {
+            const browser = await puppeteer_extra_1.default.launch({ executablePath });
+            chromeVersion = await browser.version();
+            await browser.close();
+        }
+        console.log('Chrome Version:', chromeVersion);
         const extras = { executablePath };
         // Use stealth plugin to avoid being detected as a bot
         puppeteer_extra_1.default.use((0, puppeteer_extra_plugin_stealth_1.default)());
@@ -148,7 +203,8 @@ async function initBrowser(options) {
             return await puppeteer_extra_1.default.launch(launchOptions);
         }
     }
-    catch (_d) {
+    catch (e) {
+        console.error(e);
         return false;
     }
 }

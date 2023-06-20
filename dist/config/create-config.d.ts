@@ -14,7 +14,7 @@ export interface CreateConfig {
      * Headless chrome
      * @default true
      */
-    headless?: boolean | 'new';
+    headless?: false | 'new';
     /**
      * Open devtools by default
      * @default false
