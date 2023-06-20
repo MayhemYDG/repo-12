@@ -1,3 +1,53 @@
+## [5.0.7](https://github.com/orkestral/venom/compare/v5.0.6...v5.0.7) (2023-06-19)
+
+
+### Bug Fixes
+
+* session name ([5db179c](https://github.com/orkestral/venom/commit/5db179c2ef601f440e6519c99d1d619d5638ab2c))
+
+
+### Features
+
+* Create Release versions ([bf14b48](https://github.com/orkestral/venom/commit/bf14b481e2f9b2f69703773c2f6b845123087551))
+* headless =  "new" |  false https://developer.chrome.com/articles/new-headless/ ([b2d0610](https://github.com/orkestral/venom/commit/b2d0610762ce4f4373ca7ae64a034e1f31064805))
+
+
+
+## [5.0.6](https://github.com/orkestral/venom/compare/v5.0.5...v5.0.6) (2023-06-19)
+
+
+### Bug Fixes
+
+* Environment Files ([08f9812](https://github.com/orkestral/venom/commit/08f98127c04a243e6e1d241bef9b19392af1f2b9))
+* latest-version ([e77e790](https://github.com/orkestral/venom/commit/e77e7900aed827f9342ed19ebd80dd7f1089636e))
+* required Node Version ([4751ac4](https://github.com/orkestral/venom/commit/4751ac4c56357bf4a6c67bb68f4e1c731317fa14))
+
+
+
+## [5.0.5](https://github.com/orkestral/venom/compare/v5.0.4...v5.0.5) (2023-06-16)
+
+
+### Bug Fixes
+
+* main and types ([ded9fd6](https://github.com/orkestral/venom/commit/ded9fd69c3c8918946819488fa70d10af84ce6da))
+
+
+### Features
+
+* add routine Update Package Version ([f3160b1](https://github.com/orkestral/venom/commit/f3160b1914c98663c998d3407068454691ab71f3))
+
+
+
+## [5.0.4](https://github.com/orkestral/venom/compare/v5.0.3...v5.0.4) (2023-06-16)
+
+
+### Bug Fixes
+
+* ci dependencies ([6902d7d](https://github.com/orkestral/venom/commit/6902d7d6691927176e3cab0c4ff812d5e2750a58))
+* wait For Objects webpack ([6c22540](https://github.com/orkestral/venom/commit/6c225408ceb43beef43bfa4cae64754edf5bad68))
+
+
+
 ## [5.0.1](https://github.com/orkestral/venom/compare/v5.0.0...v5.0.1) (2023-05-05)
 
 
