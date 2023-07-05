@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.connect = void 0;
 const check_up_to_date_1 = require("./check-up-to-date");
 const config_1 = require("../config");
-const browser_1 = require("./browser");
 const layers_1 = require("../api/layers");
 async function connect(options) {
     const event = new layers_1.CallbackOnStatus();
@@ -21,13 +20,13 @@ async function connect(options) {
     if (mergeOptionsDefault.updatesLog) {
         await (0, check_up_to_date_1.checkUpdates)();
     }
-    const wpage = await (0, browser_1.initBrowser)(mergeOptionsDefault);
-    if (typeof wpage !== 'boolean') {
-        const page = await (0, browser_1.initWhatsapp)(mergeOptionsDefault, wpage);
-        if (typeof page !== 'boolean') {
-            console.log('New option');
-        }
-    }
+    // const wpage: Browser | boolean = await initBrowser(mergeOptionsDefault);
+    // if (typeof wpage !== 'boolean') {
+    //   const page: boolean | Page = await initWhatsapp(mergeOptionsDefault, wpage);
+    //   if (typeof page !== 'boolean') {
+    //     console.log('New option');
+    //   }
+    // }
 }
 exports.connect = connect;
 //# sourceMappingURL=init.js.map

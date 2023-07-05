@@ -80,7 +80,7 @@ async function create(sessionOrOption, catchQR, statusFind, options, browserInst
                 text: 'Waiting... checking the browser...'
             });
         }
-        const browser = await (0, browser_1.initBrowser)(mergedOptions);
+        const browser = await (0, browser_1.initBrowser)(mergedOptions, spinnies);
         if (typeof browser === 'boolean') {
             spinnies.fail(`browser-${session}`, {
                 text: `Error no open browser....`
