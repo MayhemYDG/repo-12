@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:schemas-jetbrains-com:teamcity-plugin-v1-xml">
+  <info>
+    <name>keeper-secrets-manager</name>
+    <display-name>Keeper Secrets Manager</display-name>
+    <description>Allows TeamCity builds to use secrets stored in Keeper Vault.</description>
+    <version>@VERSION@</version>
+    <download-url>https://github.com/keeper-security/secrets-manager/releases/</download-url>
+    <email>sm@keepersecurity.com</email>
+    <vendor>
+      <name>Keeper Security</name>
+      <url>https://www.keepersecurity.com/</url>
+      <logo>https://www.keepersecurity.com/assets/branding/favicon-96x96.png</logo>
+    </vendor>
+  </info>
+  <requirements min-build="58245" />
+  <deployment use-separate-classloader="true" allow-runtime-reload="true" />
+</teamcity-plugin>
