@@ -33,7 +33,7 @@ dependencies {
   compileOnly("org.jetbrains.teamcity:oauth:${rootProject.extra["teamcityVersion"]}")
   testImplementation("org.jetbrains.teamcity:oauth:${rootProject.extra["teamcityVersion"]}")
 
-  implementation("com.squareup.okhttp3:okhttp:4.12.0")
+  testImplementation("com.squareup.okhttp3:okhttp:4.12.0")
   testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
 
   implementation("com.squareup.moshi:moshi:1.15.1")
