@@ -6,7 +6,7 @@ A plugin to TeamCity (>= 2018.1) to integrate with Keeper Secrets Manager to mak
 
 ## Getting Started
 
-1. You can [download](https://github.com/keeper-security/secrets-manager/releases) the plugin build and install it as an [additional plugin](https://confluence.jetbrains.com/display/TCDL/Installing+Additional+Plugins) for TeamCity 2018.1+.
+1. You can [download](https://github.com/keeper-security/secrets-manager-teamcity/releases) the plugin build and install it as an [additional plugin](https://confluence.jetbrains.com/display/TCDL/Installing+Additional+Plugins) for TeamCity 2018.1+.
 2. The Keeper Secrets Manager plugin is installed as a TeamCity 'connection'.
    + Go to the administrator screen for the desired project,
    + then to 'Connections'.
