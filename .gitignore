@@ -1,0 +1,14 @@
+build/
+env/
+gradle/
+out/
+
+.gradle/
+.idea/
+.idea_modules/
+.vscode/
+*.iml
+
+data
+downloads
+servers
