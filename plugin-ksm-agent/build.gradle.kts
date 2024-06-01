@@ -21,7 +21,7 @@ dependencies {
 
   implementation("com.keepersecurity.secrets-manager:core:16.6.4")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-  implementation("com.squareup.okhttp3:okhttp:4.12.0")
+  testImplementation("com.squareup.okhttp3:okhttp:4.12.0")
   testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
 
   implementation("com.squareup.moshi:moshi:1.15.1")

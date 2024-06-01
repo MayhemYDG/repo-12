@@ -6,7 +6,7 @@
     <display-name>Keeper Secrets Manager</display-name>
     <description>Allows TeamCity builds to use secrets stored in Keeper Vault.</description>
     <version>@VERSION@</version>
-    <download-url>https://github.com/keeper-security/secrets-manager/releases/</download-url>
+    <download-url>https://github.com/keeper-security/secrets-manager-teamcity/releases/</download-url>
     <email>sm@keepersecurity.com</email>
     <vendor>
       <name>Keeper Security</name>
