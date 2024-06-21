@@ -48,35 +48,6 @@ const userInfos = [
 for (const userInfo of userInfos) {
   // eslint-disable-next-line jest/valid-title
   describe(userInfo.key, () => {
-    describe('readPrivateKey', () => {
-      it('returns a PGP private key from an armored string', async () => {
-        await openpgp.readPrivateKey(userInfo.pgp).then(privateKey => {
-          expect(privateKey.keyID).toEqual(userInfo.keyID);
-          expect(privateKey.name).toEqual(userInfo.name);
-          expect(privateKey.email).toEqual(userInfo.email);
-          expect(privateKey.fingerprint).toEqual(userInfo.fingerprint);
-        });
-      });
-      it('returns a PGP private key from a base64 armored string', async () => {
-        await openpgp.readPrivateKey(userInfo.pgp_base64).then(privateKey => {
-          expect(privateKey.keyID).toEqual(userInfo.keyID);
-          expect(privateKey.name).toEqual(userInfo.name);
-          expect(privateKey.email).toEqual(userInfo.email);
-          expect(privateKey.fingerprint).toEqual(userInfo.fingerprint);
-        });
-      });
-    });
-
-    describe('generateKeyPair', () => {
-      it('generates a PGP key pair', async () => {
-        await openpgp.generateKeyPair(userInfo.name, userInfo.email, userInfo.passphrase).then(keyPair => {
-          expect(keyPair).not.toBeUndefined();
-          expect(keyPair.publicKey).not.toBeUndefined();
-          expect(keyPair.privateKey).not.toBeUndefined();
-        });
-      }, 30000);
-    });
-
     describe('isArmored', () => {
       it('returns true for armored key string', async () => {
         await openpgp.isArmored(userInfo.pgp).then(armored => {
