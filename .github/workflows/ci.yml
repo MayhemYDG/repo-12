@@ -8,7 +8,6 @@ name: CI
       - "ci-*"
   pull_request:
     types:
-    types:
       - opened
       - reopened
       - synchronize
