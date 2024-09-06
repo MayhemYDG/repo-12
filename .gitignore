@@ -4,3 +4,6 @@ Cargo.lock
 *.profraw
 coverage_report
 cov_raw
+
+# Ignore OS files
+.DS_Store
