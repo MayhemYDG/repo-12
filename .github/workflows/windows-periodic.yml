@@ -1,307 +1,549 @@
-# Workflow intended to run containerd integration tests on Windows.
-
-name: Windows Integration Tests
-
-on:
-  workflow_dispatch:
-  workflow_call:
-    secrets:
-      AZURE_SUB_ID:
-        required: true
-      AZURE_CREDS:
-        required: true
-      GCP_SERVICE_ACCOUNT:
-        required: true
-      GCP_WORKLOAD_IDENTITY_PROVIDER:
-        required: true
-
 env:
   AZURE_DEFAULT_LOCATION: westeurope
-  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
   AZURE_DEFAULT_VM_SIZE: Standard_D2s_v3
-  PASSWORD: Passw0rdAdmin # temp for testing, will be generated
+  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUB_ID }}
+  BUSYBOX_TESTING_IMAGE_REF: registry.k8s.io/e2e-test-images/busybox:1.29-2
   DEFAULT_ADMIN_USERNAME: azureuser
-  SSH_OPTS: "-o ServerAliveInterval=20 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-  REMOTE_VM_BIN_PATH: "c:\\containerd\\bin"
-  BUSYBOX_TESTING_IMAGE_REF: "registry.k8s.io/e2e-test-images/busybox:1.29-2"
-  RESOURCE_CONSUMER_TESTING_IMAGE_REF: "registry.k8s.io/e2e-test-images/resource-consumer:1.10"
-  WEBSERVER_TESTING_IMAGE_REF: "registry.k8s.io/e2e-test-images/nginx:1.14-2"
-
-permissions:  # added using https://github.com/step-security/secure-workflows
-  contents: read
-
+  JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/usr/lib/jvm/temurin-11-jdk-amd64/lib/security/cacerts
+  NODE_OPTIONS: --use-openssl-ca
+  PASSWORD: Passw0rdAdmin
+  REMOTE_VM_BIN_PATH: c:\containerd\bin
+  RESOURCE_CONSUMER_TESTING_IMAGE_REF: registry.k8s.io/e2e-test-images/resource-consumer:1.10
+  SSH_OPTS: -o ServerAliveInterval=20 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+  WEBSERVER_TESTING_IMAGE_REF: registry.k8s.io/e2e-test-images/nginx:1.14-2
 jobs:
   winIntegration:
-    # NOTE: the following permissions are required by `google-github-actions/auth`:
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: before
+      run: 'sudo apt update
+
+        sudo apt install -y squid-openssl
+
+        sudo mkdir /squid
+
+        cat << EOF | sudo tee /squid/key.pem
+
+        -----BEGIN PRIVATE KEY-----
+
+        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
+
+        CznEvO4qIs3mXDYkNBQrdVLGF93y
+
+        -----END PRIVATE KEY-----
+
+        EOF
+
+        cat << EOF | sudo tee /squid/cert.pem
+
+        -----BEGIN CERTIFICATE-----
+
+        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
+
+        -----END CERTIFICATE-----
+
+        EOF
+
+        sudo /usr/lib/squid/security_file_certgen -c -s /squid/ssl_db -M 4MB
+
+        sudo chown -R proxy:proxy /squid
+
+        cat << EOF | sudo tee /etc/squid/squid.conf
+
+        cache deny all
+
+
+        http_port 7821
+
+        http_port 3128 intercept
+
+        https_port 3129 intercept ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB
+        cert=/squid/cert.pem key=/squid/key.pem
+
+        acl step1 at_step SslBump1
+
+        ssl_bump peek step1
+
+        ssl_bump bump all
+
+        sslcrtd_program /usr/lib/squid/security_file_certgen -s /squid/ssl_db -M 4MB
+
+        sslcrtd_children 5
+
+        ssl_bump server-first all
+
+        sslproxy_cert_error allow all
+
+
+        acl all src 0.0.0.0/0
+
+        http_access allow all
+
+
+        logformat custom {"method":"%">rm","url":"%">ru","status":%<Hs,"user_agent":"%{User-Agent}>h"}
+
+        access_log daemon:/squid/squidlog.json custom all !CONNECT
+
+        EOF
+
+        sudo systemctl reload squid
+
+        sudo cp /squid/cert.pem /usr/local/share/ca-certificates/squid.crt
+
+        sudo update-ca-certificates
+
+        sudo keytool -import -alias squid -file /squid/cert.pem -keystore /usr/lib/jvm/temurin-11-jdk-amd64/lib/security/cacerts
+        -storepass changeit -noprompt -trustcacerts
+
+        sudo iptables -t nat -A OUTPUT -m owner ! --uid-owner proxy -p tcp --dport
+        80 -j DNAT --to-destination 127.0.0.1:3128
+
+        sudo iptables -t nat -A OUTPUT -m owner ! --uid-owner proxy -p tcp --dport
+        443 -j DNAT --to-destination 127.0.0.1:3129
+
+        sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
+    - continue-on-error: true
+      uses: actions/checkout@v4
+    - continue-on-error: true
+      name: Install required packages
+      run: 'sudo apt-get install xmlstarlet -y
+
+        '
+    - continue-on-error: true
+      name: PrepareArtifacts
+      run: 'STARTED_TIME=$(date +%s)
+
+        LOGS_DIR=$HOME/$STARTED_TIME
+
+        echo "STARTED_TIME=$STARTED_TIME" >> $GITHUB_ENV
+
+        echo "LOGS_DIR=$LOGS_DIR" >> $GITHUB_ENV
+
+
+        echo "VM_INTEGRATION_LOGFILE=/c/Logs/integration.log" >> $GITHUB_ENV
+
+        echo "VM_CRI_INTEGRATION_LOGFILE=/c/Logs/cri-integration.log" >> $GITHUB_ENV
+
+
+        mkdir -p $LOGS_DIR/artifacts
+
+        jq -n --arg node temp --arg timestamp $STARTED_TIME ''$timestamp|tonumber|{timestamp:.,$node}''
+        > $LOGS_DIR/started.json
+
+        '
+    - continue-on-error: true
+      name: Generate ssh key pair
+      run: 'mkdir -p $HOME/.ssh/
+
+        ssh-keygen -t rsa -b 4096 -C "ci@containerd.com" -f $HOME/.ssh/id_rsa -q -N
+        ""
+
+        echo "SSH_PUB_KEY=$(cat ~/.ssh/id_rsa.pub)" >> $GITHUB_ENV
+
+        '
+    - continue-on-error: true
+      name: AZLogin
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDS }}
+    - continue-on-error: true
+      name: AZResourceGroupCreate
+      uses: azure/CLI@v1
+      with:
+        inlinescript: 'az group create -n ${{ matrix.AZURE_RESOURCE_GROUP }} -l ${{
+          env.AZURE_DEFAULT_LOCATION }} --tags creationTimestamp=$(date -u ''+%Y-%m-%dT%H:%M:%SZ'')
+
+          '
+    - continue-on-error: true
+      name: AZTestVMCreate
+      uses: azure/CLI@v1
+      with:
+        inlinescript: "DETAILS=$(az vm create -n winTestVM --admin-username ${{ env.DEFAULT_ADMIN_USERNAME\
+          \ }} --admin-password ${{ env.PASSWORD }} --image ${{ matrix.AZURE_IMG }}\
+          \ -g ${{ matrix.AZURE_RESOURCE_GROUP }} --nsg-rule SSH --size ${{ env.AZURE_DEFAULT_VM_SIZE\
+          \ }} --public-ip-sku Standard -o json)\nPUB_IP=$(echo $DETAILS | jq -r .publicIpAddress)\n\
+          if [ \"$PUB_IP\" == \"null\" ]\nthen\n    RETRY=0\n    while [ \"$PUB_IP\"\
+          \ == \"null\" ] || [ $RETRY -le 5 ]\n    do\n        sleep 5\n        PUB_IP=$(az\
+          \ vm show -d -g ${{ matrix.AZURE_RESOURCE_GROUP }} -n winTestVM -o json\
+          \ --query publicIps | jq -r)\n        RETRY=$(( $RETRY + 1 ))\n    done\n\
+          fi\n\nif [ \"$PUB_IP\" == \"null\" ]\nthen\n    echo \"failed to fetch public\
+          \ IP\"\n    exit 1\nfi\necho \"VM_PUB_IP=$PUB_IP\" >> $GITHUB_ENV\n"
+    - continue-on-error: true
+      name: EnableAZVMSSH
+      uses: azure/CLI@v1
+      with:
+        inlinescript: 'az vm run-command invoke  --command-id RunPowerShellScript
+          -n winTestVM -g ${{ matrix.AZURE_RESOURCE_GROUP }} --scripts @$GITHUB_WORKSPACE/script/setup/enable_ssh_windows.ps1
+          --parameters ''SSHPublicKey=${{ env.SSH_PUB_KEY }}''
+
+          '
+    - continue-on-error: true
+      name: TestSSHConnection
+      run: "if ! ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP\
+        \ }}  \"hostname\";\nthen\n  exit 1\nfi\n"
+    - continue-on-error: true
+      name: InstallContainerFeature
+      run: 'ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP
+        }} "powershell.exe -command { Install-WindowsFeature -Name ''Containers''
+        -Restart }"
+
+        '
+    - continue-on-error: true
+      name: WaitForVMToRestart
+      run: "# give the vm 30 seconds to actually stop. SSH server might actually respond\
+        \ while server is shutting down.\nsleep 30\nwhile [ ! $( ssh -i $HOME/.ssh/id_rsa\
+        \ ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }}  \"hostname\") ];\ndo\n\
+        \   echo \"Unable to connect to azurevm\"\ndone\necho \"Connection reestablished.\
+        \ VM restarted succesfully.\"\n"
+      timeout-minutes: 5
+    - continue-on-error: true
+      name: CreateNatNetwork
+      run: 'ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP
+        }} "powershell.exe -command { curl.exe -L ''https://raw.githubusercontent.com/microsoft/SDN/master/Kubernetes/windows/hns.psm1''
+        -o hns.psm1 }"
+
+        ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }}
+        "powershell.exe -command { Import-Module .\hns.psm1 ; New-HnsNetwork -Type
+        NAT -Name nat -AddressPrefix 172.19.208.0/20 -Gateway 172.19.208.1 }"
+
+        '
+    - continue-on-error: true
+      name: PrepareTestingEnv
+      run: 'scp -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }}  $GITHUB_WORKSPACE/script/setup/prepare_env_windows.ps1  azureuser@${{
+        env.VM_PUB_IP }}:/prepare_env_windows.ps1
+
+        ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }}  azureuser@${{ env.VM_PUB_IP
+        }} "c:\\prepare_env_windows.ps1"
+
+        '
+    - continue-on-error: true
+      name: MakeContainerDBins
+      run: 'ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP
+        }} "git clone http://github.com/containerd/containerd c:\\containerd "
+
+        ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }}
+        "cd c:\containerd ; make binaries"
+
+        '
+    - continue-on-error: true
+      id: RunIntegrationTests
+      name: RunIntegrationTests
+      run: "ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP\
+        \ }} \"sh.exe -s\" << EOF\n  cd /c/containerd\n  export EXTRA_TESTFLAGS=\"\
+        -timeout=20m\"\n  set -o pipefail\n  make integration | tee ${{ env.VM_INTEGRATION_LOGFILE\
+        \ }}\nEOF\necho 'SUCCEEDED=1' >> $GITHUB_OUTPUT\n"
+    - continue-on-error: true
+      name: PrepareRepoList
+      run: 'cat > repolist.toml << EOF
+
+        busybox = "${{ env.BUSYBOX_TESTING_IMAGE_REF }}"
+
+        ResourceConsumer = "${{ env.RESOURCE_CONSUMER_TESTING_IMAGE_REF }}"
+
+        EOF
+
+
+        cat > cri-test-images.yaml << EOF
+
+        defaultTestContainerImage: ${{ env.BUSYBOX_TESTING_IMAGE_REF }}
+
+        webServerTestImage: ${{ env.WEBSERVER_TESTING_IMAGE_REF }}
+
+        EOF
+
+
+        scp -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} repolist.toml azureuser@${{ env.VM_PUB_IP
+        }}:c:/repolist.toml
+
+        scp -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} cri-test-images.yaml azureuser@${{
+        env.VM_PUB_IP }}:c:/cri-test-images.yaml
+
+        '
+    - continue-on-error: true
+      id: RunCRIIntegrationTests
+      name: RunCRIIntegrationTests
+      run: "ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP\
+        \ }} \"sh.exe -s\" <<EOF\n  cd c:/containerd\n  ./script/setup/install-cni-windows\n\
+        \  export TEST_IMAGE_LIST=c:/repolist.toml\n  set -o pipefail\n  make cri-integration\
+        \ | tee ${{ env.VM_CRI_INTEGRATION_LOGFILE }}\nEOF\necho 'SUCCEEDED=1' >>\
+        \ $GITHUB_OUTPUT\n"
+    - continue-on-error: true
+      name: GetCritestRepo
+      run: 'ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP
+        }} "git clone https://github.com/kubernetes-sigs/cri-tools c:/cri-tools"
+
+        '
+    - continue-on-error: true
+      name: BuildCritest
+      run: 'ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP
+        }} "sh.exe -c ''cd /c/cri-tools && make critest''"
+
+        '
+    - continue-on-error: true
+      id: RunCritest
+      name: RunCritest
+      run: "# This test is exceedingly flaky only on ws2022 so skip for now to keep\
+        \ CI happy.\n# Info: https://github.com/containerd/containerd/issues/6652\n\
+        SKIP=\"\"\nif [ '${{ matrix.win_ver }}' == 'ltsc2022' ];then\n  SKIP='-ginkgo.skip=\"\
+        runtime should support exec with tty=true and stdin=true\"'\nfi\n\nssh -i\
+        \ $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} \"\
+        powershell.exe -command { C:\\containerd\\bin\\containerd.exe --log-level=debug\
+        \ --log-file=C:/logs/containerd.log --service-name containerd --register-service\
+        \ ; Set-Service containerd -StartupType Automatic; Start-Service containerd\
+        \ }\"\nssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP\
+        \ }} \"sh.exe -s\" <<EOF\n  sleep 5\n  set -o pipefail\n  C:/cri-tools/build/bin/windows/amd64/critest.exe\
+        \ $SKIP --runtime-endpoint='npipe://./pipe/containerd-containerd' --test-images-file='c:/cri-test-images.yaml'\
+        \ --report-dir='c:/Logs' -ginkgo.junit-report=\"C:\\Logs\\junit_critest.xml\"\
+        \ | tee c:/Logs/critest.log\nEOF\necho 'SUCCEEDED=1' >> $GITHUB_OUTPUT\n"
+    - continue-on-error: true
+      name: PullLogsFromWinNode
+      run: "# Generate JUnit reports from the stdouts of the tests:\nssh -i $HOME/.ssh/id_rsa\
+        \ ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} \"sh.exe -c 'touch ${{\
+        \ env.VM_INTEGRATION_LOGFILE }}; cat ${{ env.VM_INTEGRATION_LOGFILE }} | go-junit-report.exe\
+        \ > /c/Logs/junit_integration.xml'\"\nssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS\
+        \ }} azureuser@${{ env.VM_PUB_IP }} \"sh.exe -c 'touch ${{ env.VM_CRI_INTEGRATION_LOGFILE\
+        \ }}; cat ${{ env.VM_CRI_INTEGRATION_LOGFILE }} | go-junit-report.exe > /c/Logs/junit_cri_integration.xml'\"\
+        \n\n# Copy over all the JUnit reports:\nscp -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS\
+        \ }} azureuser@${{ env.VM_PUB_IP }}:c:/Logs/*.xml ${{ env.LOGS_DIR }}/artifacts/\n\
+        for f in $(ls ${{ env.LOGS_DIR }}/artifacts/*.xml); do\n    xmlstarlet ed\
+        \ -d \"/testsuites/testsuite/properties\" $f > ${{ env.LOGS_DIR }}/$(basename\
+        \ $f)\n    mv ${{ env.LOGS_DIR }}/$(basename $f) $f\ndone\n"
+    - continue-on-error: true
+      name: FinishJob
+      run: 'jq -n --arg result SUCCESS --arg timestamp $(date +%s) ''$timestamp|tonumber|{timestamp:.,$result}''
+        > ${{ env.LOGS_DIR }}/finished.json
+
+        echo "${{ env.STARTED_TIME }}" > ${{ github.workspace }}/latest-build.txt
+
+        '
+    - continue-on-error: true
+      id: AssignGcpCreds
+      name: AssignGcpCreds
+      run: 'echo ''GCP_SERVICE_ACCOUNT=${{ secrets.GCP_SERVICE_ACCOUNT }}'' >> $GITHUB_OUTPUT
+
+        echo ''GCP_WORKLOAD_IDENTITY_PROVIDER=${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER
+        }}'' >> $GITHUB_OUTPUT
+
+        '
+    - continue-on-error: true
+      if: steps.AssignGcpCreds.outputs.GCP_SERVICE_ACCOUNT && steps.AssignGcpCreds.outputs.GCP_WORKLOAD_IDENTITY_PROVIDER
+      name: AuthGcp
+      uses: google-github-actions/auth@v2
+      with:
+        service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+    - continue-on-error: true
+      if: steps.AssignGcpCreds.outputs.GCP_SERVICE_ACCOUNT && steps.AssignGcpCreds.outputs.GCP_WORKLOAD_IDENTITY_PROVIDER
+      name: UploadJobReport
+      uses: google-github-actions/upload-cloud-storage@v2.1.3
+      with:
+        destination: ${{ matrix.GOOGLE_BUCKET }}
+        parent: false
+        path: ${{ github.workspace }}/latest-build.txt
+    - continue-on-error: true
+      if: steps.AssignGcpCreds.outputs.GCP_SERVICE_ACCOUNT && steps.AssignGcpCreds.outputs.GCP_WORKLOAD_IDENTITY_PROVIDER
+      name: UploadLogsDir
+      uses: google-github-actions/upload-cloud-storage@v2.1.3
+      with:
+        destination: ${{ matrix.GOOGLE_BUCKET }}${{ env.STARTED_TIME}}
+        parent: false
+        path: ${{ env.LOGS_DIR }}
+    - continue-on-error: true
+      name: Check all CI stages succeeded
+      uses: actions/github-script@v7
+      with:
+        script: "const stepResults = {\n  RunIntegrationTests: \"${{ steps.RunIntegrationTests.outputs.SUCCEEDED\
+          \ }}\",\n  RunCRIIntegrationTests: \"${{ steps.RunCRIIntegrationTests.outputs.SUCCEEDED\
+          \ }}\",\n  RunCritest: \"${{ steps.RunCritest.outputs.SUCCEEDED }}\",\n\
+          };\n\nlet failedTasks = [];\nfor( [step, result] of Object.entries(stepResults)\
+          \ ) {\n  if (result != \"1\") {\n    failedTasks.push(step);\n  }\n};\n\n\
+          if (failedTasks.length != 0) {\n  core.setFailed(`One or more CI stages\
+          \ have failed. Please review the outputs of the following stepts: ${failedTasks}.`);\n\
+          };\n"
+    - continue-on-error: true
+      if: always()
+      name: ResourceCleanup
+      uses: azure/CLI@v1
+      with:
+        inlinescript: 'az group delete -g ${{ matrix.AZURE_RESOURCE_GROUP }} --yes
+
+          '
+    - name: after
+      run: sudo curl --request PUT -T /squid/squidlog.json --url https://storage.googleapis.com/virtualeventdemoblr.appspot.com/squid/DataDog/containerd.$(date
+        +%s)
     strategy:
-      # NOTE(aznashwan): this will permit all other jobs from the matrix to finish and
-      # upload their results even if one has a failing non-test-task:
-      # (e.g. hitting resource limits in the `AZTestVMCreate` task)
       fail-fast: false
       matrix:
-        win_ver: [ltsc2019, ltsc2022]
         include:
-        - win_ver: ltsc2019
-          AZURE_IMG: "MicrosoftWindowsServer:WindowsServer:2019-Datacenter:latest"
+        - AZURE_IMG: MicrosoftWindowsServer:WindowsServer:2019-Datacenter:latest
           AZURE_RESOURCE_GROUP: ctrd-integration-ltsc2019-${{ github.run_id }}
-          GOOGLE_BUCKET: "containerd-integration/logs/windows-ltsc2019/"
-        - win_ver: ltsc2022
-          AZURE_IMG: "MicrosoftWindowsServer:WindowsServer:2022-datacenter-smalldisk-g2:latest"
+          GOOGLE_BUCKET: containerd-integration/logs/windows-ltsc2019/
+          win_ver: ltsc2019
+        - AZURE_IMG: MicrosoftWindowsServer:WindowsServer:2022-datacenter-smalldisk-g2:latest
           AZURE_RESOURCE_GROUP: ctrd-integration-ltsc2022-${{ github.run_id }}
-          GOOGLE_BUCKET: "containerd-integration/logs/windows-ltsc2022/"
-    runs-on: ubuntu-latest
-    timeout-minutes: 90
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install required packages
-        run: |
-          sudo apt-get install xmlstarlet -y
-
-      - name: PrepareArtifacts
-        run: |
-          STARTED_TIME=$(date +%s)
-          LOGS_DIR=$HOME/$STARTED_TIME
-          echo "STARTED_TIME=$STARTED_TIME" >> $GITHUB_ENV
-          echo "LOGS_DIR=$LOGS_DIR" >> $GITHUB_ENV
-
-          echo "VM_INTEGRATION_LOGFILE=/c/Logs/integration.log" >> $GITHUB_ENV
-          echo "VM_CRI_INTEGRATION_LOGFILE=/c/Logs/cri-integration.log" >> $GITHUB_ENV
-
-          mkdir -p $LOGS_DIR/artifacts
-          jq -n --arg node temp --arg timestamp $STARTED_TIME '$timestamp|tonumber|{timestamp:.,$node}' > $LOGS_DIR/started.json
-
-      - name: Generate ssh key pair
-        run: |
-          mkdir -p $HOME/.ssh/
-          ssh-keygen -t rsa -b 4096 -C "ci@containerd.com" -f $HOME/.ssh/id_rsa -q -N ""
-          echo "SSH_PUB_KEY=$(cat ~/.ssh/id_rsa.pub)" >> $GITHUB_ENV
-
-      - name: AZLogin
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDS }}
-
-      - name: AZResourceGroupCreate
-        uses: azure/CLI@v1
-        with:
-          inlinescript: |
-            az group create -n ${{ matrix.AZURE_RESOURCE_GROUP }} -l ${{ env.AZURE_DEFAULT_LOCATION }} --tags creationTimestamp=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
-
-      - name: AZTestVMCreate
-        uses: azure/CLI@v1
-        with:
-          inlinescript: |
-            DETAILS=$(az vm create -n winTestVM --admin-username ${{ env.DEFAULT_ADMIN_USERNAME }} --admin-password ${{ env.PASSWORD }} --image ${{ matrix.AZURE_IMG }} -g ${{ matrix.AZURE_RESOURCE_GROUP }} --nsg-rule SSH --size ${{ env.AZURE_DEFAULT_VM_SIZE }} --public-ip-sku Standard -o json)
-            PUB_IP=$(echo $DETAILS | jq -r .publicIpAddress)
-            if [ "$PUB_IP" == "null" ]
-            then
-                RETRY=0
-                while [ "$PUB_IP" == "null" ] || [ $RETRY -le 5 ]
-                do
-                    sleep 5
-                    PUB_IP=$(az vm show -d -g ${{ matrix.AZURE_RESOURCE_GROUP }} -n winTestVM -o json --query publicIps | jq -r)
-                    RETRY=$(( $RETRY + 1 ))
-                done
-            fi
-
-            if [ "$PUB_IP" == "null" ]
-            then
-                echo "failed to fetch public IP"
-                exit 1
-            fi
-            echo "VM_PUB_IP=$PUB_IP" >> $GITHUB_ENV
-
-      - name: EnableAZVMSSH
-        uses: azure/CLI@v1
-        with:
-          inlinescript: |
-            az vm run-command invoke  --command-id RunPowerShellScript -n winTestVM -g ${{ matrix.AZURE_RESOURCE_GROUP }} --scripts @$GITHUB_WORKSPACE/script/setup/enable_ssh_windows.ps1 --parameters 'SSHPublicKey=${{ env.SSH_PUB_KEY }}'
-
-      - name: TestSSHConnection
-        run: |
-          if ! ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }}  "hostname";
-          then
-            exit 1
-          fi
-
-      - name: InstallContainerFeature
-        run: |
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "powershell.exe -command { Install-WindowsFeature -Name 'Containers' -Restart }"
-
-      - name: WaitForVMToRestart
-        timeout-minutes: 5
-        run: |
-          # give the vm 30 seconds to actually stop. SSH server might actually respond while server is shutting down.
-          sleep 30
-          while [ ! $( ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }}  "hostname") ];
-          do
-             echo "Unable to connect to azurevm"
-          done
-          echo "Connection reestablished. VM restarted succesfully."
-
-      - name: CreateNatNetwork
-        run: |
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "powershell.exe -command { curl.exe -L 'https://raw.githubusercontent.com/microsoft/SDN/master/Kubernetes/windows/hns.psm1' -o hns.psm1 }"
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "powershell.exe -command { Import-Module .\hns.psm1 ; New-HnsNetwork -Type NAT -Name nat -AddressPrefix 172.19.208.0/20 -Gateway 172.19.208.1 }"
-
-      - name: PrepareTestingEnv
-        run: |
-          scp -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }}  $GITHUB_WORKSPACE/script/setup/prepare_env_windows.ps1  azureuser@${{ env.VM_PUB_IP }}:/prepare_env_windows.ps1
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }}  azureuser@${{ env.VM_PUB_IP }} "c:\\prepare_env_windows.ps1"
-
-      - name: MakeContainerDBins
-        run: |
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "git clone http://github.com/containerd/containerd c:\\containerd "
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "cd c:\containerd ; make binaries"
-
-      - name: RunIntegrationTests
-        id: RunIntegrationTests
-        # NOTE(aznashwan): this is set to continue-on-error to allow the workflow to run until
-        # the reports are converted/uploaded to GCloud so as to show up on testgrid.k8s.io too.
-        continue-on-error: true
-        run: |
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "sh.exe -s" << EOF
-            cd /c/containerd
-            export EXTRA_TESTFLAGS="-timeout=20m"
-            set -o pipefail
-            make integration | tee ${{ env.VM_INTEGRATION_LOGFILE }}
-          EOF
-          echo 'SUCCEEDED=1' >> $GITHUB_OUTPUT
-
-      - name: PrepareRepoList
-        run: |
-            cat > repolist.toml << EOF
-            busybox = "${{ env.BUSYBOX_TESTING_IMAGE_REF }}"
-            ResourceConsumer = "${{ env.RESOURCE_CONSUMER_TESTING_IMAGE_REF }}"
-            EOF
-
-            cat > cri-test-images.yaml << EOF
-            defaultTestContainerImage: ${{ env.BUSYBOX_TESTING_IMAGE_REF }}
-            webServerTestImage: ${{ env.WEBSERVER_TESTING_IMAGE_REF }}
-            EOF
-
-            scp -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} repolist.toml azureuser@${{ env.VM_PUB_IP }}:c:/repolist.toml
-            scp -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} cri-test-images.yaml azureuser@${{ env.VM_PUB_IP }}:c:/cri-test-images.yaml
-
-      - name: RunCRIIntegrationTests
-        id: RunCRIIntegrationTests
-        # NOTE(aznashwan): this is set to continue-on-error to allow the workflow to run until
-        # the reports are converted/uploaded to GCloud so as to show up on testgrid.k8s.io too.
-        continue-on-error: true
-        run: |
-           ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "sh.exe -s" <<EOF
-             cd c:/containerd
-             ./script/setup/install-cni-windows
-             export TEST_IMAGE_LIST=c:/repolist.toml
-             set -o pipefail
-             make cri-integration | tee ${{ env.VM_CRI_INTEGRATION_LOGFILE }}
-           EOF
-           echo 'SUCCEEDED=1' >> $GITHUB_OUTPUT
-
-      - name: GetCritestRepo
-        run: |
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "git clone https://github.com/kubernetes-sigs/cri-tools c:/cri-tools"
-
-      - name: BuildCritest
-        run: |
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "sh.exe -c 'cd /c/cri-tools && make critest'"
-
-      - name: RunCritest
-        id: RunCritest
-        # NOTE(aznashwan): this is set to continue-on-error to allow the workflow to run until
-        # the reports are converted/uploaded to GCloud so as to show up on testgrid.k8s.io too.
-        continue-on-error: true
-        run: |
-          # This test is exceedingly flaky only on ws2022 so skip for now to keep CI happy.
-          # Info: https://github.com/containerd/containerd/issues/6652
-          SKIP=""
-          if [ '${{ matrix.win_ver }}' == 'ltsc2022' ];then
-            SKIP='-ginkgo.skip="runtime should support exec with tty=true and stdin=true"'
-          fi
-
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "powershell.exe -command { C:\containerd\bin\containerd.exe --log-level=debug --log-file=C:/logs/containerd.log --service-name containerd --register-service ; Set-Service containerd -StartupType Automatic; Start-Service containerd }"
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "sh.exe -s" <<EOF
-            sleep 5
-            set -o pipefail
-            C:/cri-tools/build/bin/windows/amd64/critest.exe $SKIP --runtime-endpoint='npipe://./pipe/containerd-containerd' --test-images-file='c:/cri-test-images.yaml' --report-dir='c:/Logs' -ginkgo.junit-report="C:\Logs\junit_critest.xml" | tee c:/Logs/critest.log
-          EOF
-          echo 'SUCCEEDED=1' >> $GITHUB_OUTPUT
-
-      - name: PullLogsFromWinNode
-        run: |
-          # Generate JUnit reports from the stdouts of the tests:
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "sh.exe -c 'touch ${{ env.VM_INTEGRATION_LOGFILE }}; cat ${{ env.VM_INTEGRATION_LOGFILE }} | go-junit-report.exe > /c/Logs/junit_integration.xml'"
-          ssh -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }} "sh.exe -c 'touch ${{ env.VM_CRI_INTEGRATION_LOGFILE }}; cat ${{ env.VM_CRI_INTEGRATION_LOGFILE }} | go-junit-report.exe > /c/Logs/junit_cri_integration.xml'"
-
-          # Copy over all the JUnit reports:
-          scp -i $HOME/.ssh/id_rsa ${{ env.SSH_OPTS }} azureuser@${{ env.VM_PUB_IP }}:c:/Logs/*.xml ${{ env.LOGS_DIR }}/artifacts/
-          for f in $(ls ${{ env.LOGS_DIR }}/artifacts/*.xml); do
-              xmlstarlet ed -d "/testsuites/testsuite/properties" $f > ${{ env.LOGS_DIR }}/$(basename $f)
-              mv ${{ env.LOGS_DIR }}/$(basename $f) $f
-          done
-
-      - name: FinishJob
-        run: |
-          jq -n --arg result SUCCESS --arg timestamp $(date +%s) '$timestamp|tonumber|{timestamp:.,$result}' > ${{ env.LOGS_DIR }}/finished.json
-          echo "${{ env.STARTED_TIME }}" > ${{ github.workspace }}/latest-build.txt
-
-      - name: AssignGcpCreds
-        id: AssignGcpCreds
-        run: |
-          echo 'GCP_SERVICE_ACCOUNT=${{ secrets.GCP_SERVICE_ACCOUNT }}' >> $GITHUB_OUTPUT
-          echo 'GCP_WORKLOAD_IDENTITY_PROVIDER=${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}' >> $GITHUB_OUTPUT
-
-      - name: AuthGcp
-        uses: google-github-actions/auth@v2
-        if: steps.AssignGcpCreds.outputs.GCP_SERVICE_ACCOUNT && steps.AssignGcpCreds.outputs.GCP_WORKLOAD_IDENTITY_PROVIDER
-        with:
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-
-      - name: UploadJobReport
-        uses: google-github-actions/upload-cloud-storage@v2.1.3
-        if: steps.AssignGcpCreds.outputs.GCP_SERVICE_ACCOUNT && steps.AssignGcpCreds.outputs.GCP_WORKLOAD_IDENTITY_PROVIDER
-        with:
-          path: ${{ github.workspace }}/latest-build.txt
-          destination: ${{ matrix.GOOGLE_BUCKET }}
-          parent: false
-
-      - name: UploadLogsDir
-        uses: google-github-actions/upload-cloud-storage@v2.1.3
-        if: steps.AssignGcpCreds.outputs.GCP_SERVICE_ACCOUNT && steps.AssignGcpCreds.outputs.GCP_WORKLOAD_IDENTITY_PROVIDER
-        with:
-          path: ${{ env.LOGS_DIR }}
-          destination: ${{ matrix.GOOGLE_BUCKET }}${{ env.STARTED_TIME}}
-          parent: false
-
-      - name: Check all CI stages succeeded
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const stepResults = {
-              RunIntegrationTests: "${{ steps.RunIntegrationTests.outputs.SUCCEEDED }}",
-              RunCRIIntegrationTests: "${{ steps.RunCRIIntegrationTests.outputs.SUCCEEDED }}",
-              RunCritest: "${{ steps.RunCritest.outputs.SUCCEEDED }}",
-            };
-
-            let failedTasks = [];
-            for( [step, result] of Object.entries(stepResults) ) {
-              if (result != "1") {
-                failedTasks.push(step);
-              }
-            };
-
-            if (failedTasks.length != 0) {
-              core.setFailed(`One or more CI stages have failed. Please review the outputs of the following stepts: ${failedTasks}.`);
-            };
-
-      - name: ResourceCleanup
-        if: always()
-        uses: azure/CLI@v1
-        with:
-          inlinescript: |
-            az group delete -g ${{ matrix.AZURE_RESOURCE_GROUP }} --yes
+          GOOGLE_BUCKET: containerd-integration/logs/windows-ltsc2022/
+          win_ver: ltsc2022
+        win_ver:
+        - ltsc2019
+        - ltsc2022
+    timeout-minutes: 60
+name: Windows Integration Tests
+'on':
+  workflow_dispatch: {}
+permissions:
+  contents: read
