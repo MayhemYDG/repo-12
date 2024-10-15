@@ -785,7 +785,7 @@ jobs:
       with:
         go-version-file: go.mod
     - continue-on-error: true
-      uses: aquaproj/aqua-installer@v1.1.2
+      uses: aquaproj/aqua-installer@v3.0.1
       with:
         aqua_version: v1.25.0
     - continue-on-error: true
