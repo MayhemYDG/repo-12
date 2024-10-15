@@ -267,7 +267,7 @@ jobs:
         go-version-file: go.mod
     - continue-on-error: true
       name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v4
+      uses: goreleaser/goreleaser-action@v6
       with:
         args: release --skip-sign --snapshot --rm-dist --skip-publish --timeout 90m
         version: v1.4.1
