@@ -292,7 +292,7 @@ jobs:
         fetch-depth: 0
     - continue-on-error: true
       name: Setup Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v5
       with:
         go-version-file: go.mod
     - continue-on-error: true
