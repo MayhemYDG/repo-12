@@ -308,7 +308,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDS }}
     - continue-on-error: true
       name: Create Azure Resource Group
-      uses: azure/CLI@v1
+      uses: azure/CLI@v2
       with:
         inlinescript: 'az group create -n ${{ env.AZURE_RESOURCE_GROUP }} -l ${{ github.event.inputs.azure_location
           }} --tags creationTimestamp=$(date +%Y-%m-%dT%T%z)
@@ -316,7 +316,7 @@ jobs:
           '
     - continue-on-error: true
       name: Create Windows Helper VM
-      uses: azure/CLI@v1
+      uses: azure/CLI@v2
       with:
         inlinescript: "PASSWORD=\"$(/usr/bin/tr -dc \"a-zA-Z0-9@#$%^&*()_+?><~\\`;\"\
           \ < /dev/urandom | /usr/bin/head -c 24; echo '')\"\naz vm create -n WinDockerHelper\
@@ -329,7 +329,7 @@ jobs:
           \ }} --name WinDockerHelper --port 2376 --priority 102\n"
     - continue-on-error: true
       name: Prepare Windows image helper
-      uses: azure/CLI@v1
+      uses: azure/CLI@v2
       with:
         inlinescript: "# Installs Windows features, opens SSH and Docker port\naz\
           \ vm run-command invoke \\\n  --command-id RunPowerShellScript \\\n  -n\
@@ -345,7 +345,7 @@ jobs:
           \ \\\n  --parameters 'SSHPublicKey=${{ env.SSH_PUB_KEY }}'\n"
     - continue-on-error: true
       name: Get Windows Helper IPs
-      uses: azure/CLI@v1
+      uses: azure/CLI@v2
       with:
         inlinescript: 'VM_DETAILS=$(az vm show -d -g ${{ env.AZURE_RESOURCE_GROUP
           }} -n WinDockerHelper -o json)
@@ -416,7 +416,7 @@ jobs:
     - continue-on-error: true
       if: always()
       name: Cleanup resources
-      uses: azure/CLI@v1
+      uses: azure/CLI@v2
       with:
         inlinescript: 'az group delete -g ${{ env.AZURE_RESOURCE_GROUP }} --yes
 
