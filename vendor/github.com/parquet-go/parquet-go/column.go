@@ -130,7 +130,7 @@ func (c *columnPages) ReadPage() (Page, error) {
 func (c *columnPages) SeekToRow(rowIndex int64) error {
 	c.index = 0
 
-	for c.index < len(c.pages) && c.pages[c.index].chunk.rowGroup.NumRows >= rowIndex {
+	for c.index < len(c.pages) && c.pages[c.index].chunk.rowGroup.NumRows < rowIndex {
 		rowIndex -= c.pages[c.index].chunk.rowGroup.NumRows
 		c.index++
 	}
@@ -139,8 +139,8 @@ func (c *columnPages) SeekToRow(rowIndex int64) error {
 		if err := c.pages[c.index].SeekToRow(rowIndex); err != nil {
 			return err
 		}
-		for i := range c.pages[c.index:] {
-			p := &c.pages[c.index+i]
+		for i := c.index + 1; i < len(c.pages); i++ {
+			p := &c.pages[i]
 			if err := p.SeekToRow(0); err != nil {
 				return err
 			}
@@ -350,6 +350,9 @@ func (cl *columnLoader) open(file *File, path []string) (*Column, error) {
 	}
 
 	c.typ = &groupType{}
+	if lt := c.schema.LogicalType; lt != nil && lt.Map != nil {
+		c.typ = &mapType{}
+	}
 	c.columns = make([]*Column, numChildren)
 
 	for i := range c.columns {
@@ -784,8 +787,10 @@ func (c *Column) decodeDictionary(header DictionaryPageHeader, page *buffer, siz
 		pageEncoding = format.Plain
 	}
 
+	// Dictionaries always have PLAIN encoding, so we need to allocate offsets for the decoded page.
 	numValues := int(header.NumValues())
-	values := pageType.NewValues(nil, nil)
+	dictBufferSize := pageType.EstimateDecodeSize(numValues, pageData, LookupEncoding(pageEncoding))
+	values := pageType.NewValues(make([]byte, 0, dictBufferSize), make([]uint32, 0, numValues))
 	values, err := pageType.Decode(values, pageData, LookupEncoding(pageEncoding))
 	if err != nil {
 		return nil, err

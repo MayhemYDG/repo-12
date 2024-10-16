@@ -239,6 +239,18 @@ func (m *mergedRowReader) ReadRows(rows []Row) (n int, err error) {
 
 	for n < len(rows) && len(m.readers) != 0 {
 		r := m.readers[0]
+		if r.end == r.off { // This readers buffer has been exhausted, repopulate it.
+			if err := r.read(); err != nil {
+				if err == io.EOF {
+					heap.Pop(m)
+					continue
+				}
+				return n, err
+			} else {
+				heap.Fix(m, 0)
+				continue
+			}
+		}
 
 		rows[n] = append(rows[n][:0], r.head()...)
 		n++
@@ -247,7 +259,7 @@ func (m *mergedRowReader) ReadRows(rows []Row) (n int, err error) {
 			if err != io.EOF {
 				return n, err
 			}
-			heap.Pop(m)
+			return n, nil
 		} else {
 			heap.Fix(m, 0)
 		}
@@ -298,7 +310,9 @@ func (r *bufferedRowReader) next() error {
 	if r.off++; r.off == r.end {
 		r.off = 0
 		r.end = 0
-		return r.read()
+		// We need to read more rows, however it is unsafe to do so here because we haven't
+		// returned the current rows to the caller yet which may cause buffer corruption.
+		return io.EOF
 	}
 	return nil
 }
@@ -350,7 +364,7 @@ func (m *mergeBuffer) setup(rows []Rows, compare func(Row, Row) int) {
 		extra := size - len(m.buffer)
 		b := make([][]Row, extra)
 		for i := range b {
-			b[i] = make([]Row, mergeBufferSize)
+			b[i] = make([]Row, 0, mergeBufferSize)
 		}
 		m.buffer = append(m.buffer, b...)
 		m.head = append(m.head, make([]int, extra)...)
@@ -379,6 +393,11 @@ func (m *mergeBuffer) release() {
 func (m *mergeBuffer) fill() error {
 	m.len = len(m.rows)
 	for i := range m.rows {
+		if m.head[i] < len(m.buffer[i]) {
+			// There is still rows data in m.buffer[i]. Skip filling the row buffer until
+			// all rows have been read.
+			continue
+		}
 		m.head[i] = 0
 		m.buffer[i] = m.buffer[i][:mergeBufferSize]
 		n, err := m.rows[i].ReadRows(m.buffer[i])

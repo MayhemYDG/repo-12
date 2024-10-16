@@ -39,7 +39,7 @@ dependency on and install with the following command:
 go get github.com/parquet-go/parquet-go
 ```
 
-Go 1.20 or later is required to use the package.
+Go 1.21 or later is required to use the package.
 
 ### Compatibility Guarantees
 
@@ -557,7 +557,7 @@ for the full interface documentation.
 
 While initial design and development occurred at Twilio Segment, the project is now maintained by the open source community. We welcome external contributors.
 to participate in the form of discussions or code changes. Please review to the
-[Contribution](./CONTRIBUTING.md) guidelines as well as the [Code of Condution](./CODE_OF_CONDUCT.md)
+[Contribution](./CONTRIBUTING.md) guidelines as well as the [Code of Conduct](./CODE_OF_CONDUCT.md)
 before submitting contributions.
 
 ### Continuous Integration

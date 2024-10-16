@@ -288,9 +288,13 @@ func (i *baseColumnIndexer) observe(numValues, numNulls int64) {
 }
 
 func (i *baseColumnIndexer) columnIndex(minValues, maxValues [][]byte, minOrder, maxOrder int) format.ColumnIndex {
+	nullPages := make([]bool, len(i.nullPages))
+	copy(nullPages, i.nullPages)
+	nullCounts := make([]int64, len(i.nullCounts))
+	copy(nullCounts, i.nullCounts)
 	return format.ColumnIndex{
-		NullPages:     i.nullPages,
-		NullCounts:    i.nullCounts,
+		NullPages:     nullPages,
+		NullCounts:    nullCounts,
 		MinValues:     minValues,
 		MaxValues:     maxValues,
 		BoundaryOrder: boundaryOrderOf(minOrder, maxOrder),
@@ -688,7 +692,7 @@ func truncateLargeMaxByteArrayValue(value []byte, sizeLimit int) []byte {
 }
 
 // incrementByteArray increments the given byte array by 1.
-// Reference: https://github.com/apache/parquet-mr/blob/master/parquet-column/src/main/java/org/apache/parquet/internal/column/columnindex/BinaryTruncator.java#L124
+// Reference: https://github.com/apache/parquet-java/blob/master/parquet-column/src/main/java/org/apache/parquet/internal/column/columnindex/BinaryTruncator.java#L124
 func incrementByteArrayInplace(value []byte) {
 	for i := len(value) - 1; i >= 0; i-- {
 		value[i]++

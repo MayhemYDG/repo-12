@@ -9,7 +9,9 @@ import (
 	"io"
 	"math"
 	"math/bits"
+	"os"
 	"reflect"
+	"slices"
 	"sort"
 
 	"github.com/parquet-go/parquet-go/compress"
@@ -603,7 +605,10 @@ func newWriter(output io.Writer, config *WriterConfig) *writer {
 			bufferIndex:        int32(leaf.columnIndex),
 			bufferSize:         int32(float64(config.PageBufferSize) * 0.98),
 			writePageStats:     config.DataPageStatistics,
-			encodings:          make([]format.Encoding, 0, 3),
+			writePageBounds: !slices.ContainsFunc(config.SkipPageBounds, func(skip []string) bool {
+				return columnPath(skip).equal(leaf.path)
+			}),
+			encodings: make([]format.Encoding, 0, 3),
 			// Data pages in version 2 can omit compression when dictionary
 			// encoding is employed; only the dictionary page needs to be
 			// compressed, the data pages are encoded with the hybrid
@@ -785,8 +790,15 @@ func (w *writer) writeFileFooter() error {
 		numRows += w.rowGroups[rowGroupIndex].NumRows
 	}
 
+	// We implemented the parquet specification version 2+, which is represented
+	// by the version number 2 in the file metadata.
+	//
+	// For reference, see:
+	// https://github.com/apache/arrow/blob/70b9ef5/go/parquet/metadata/file.go#L122-L127
+	const parquetFileFormatVersion = 2
+
 	footer, err := thrift.Marshal(new(thrift.CompactProtocol), &format.FileMetaData{
-		Version:          1,
+		Version:          parquetFileFormatVersion,
 		Schema:           w.schemaElements,
 		NumRows:          numRows,
 		RowGroups:        w.rowGroups,
@@ -866,10 +878,13 @@ func (w *writer) writeRowGroup(rowGroupSchema *Schema, rowGroupSortingColumns []
 			c.offsetIndex.PageLocations[j].Offset += dataPageOffset
 		}
 
-		for _, page := range c.pages {
-			if _, err := io.Copy(&w.writer, page); err != nil {
-				return 0, fmt.Errorf("writing buffered pages of row group column %d: %w", i, err)
-			}
+		if offset, err := c.pageBuffer.Seek(0, io.SeekStart); err != nil {
+			return 0, err
+		} else if offset != 0 {
+			return 0, fmt.Errorf("resetting parquet page buffer to the start expected offset zero but got %d", offset)
+		}
+		if _, err := io.Copy(&w.writer, c.pageBuffer); err != nil {
+			return 0, fmt.Errorf("writing buffered pages of row group column %d: %w", i, err)
 		}
 	}
 
@@ -1110,8 +1125,9 @@ func (wb *writerBuffers) swapPageAndScratchBuffers() {
 }
 
 type writerColumn struct {
-	pool  BufferPool
-	pages []io.ReadWriteSeeker
+	pool       BufferPool
+	pageBuffer io.ReadWriteSeeker
+	numPages   int
 
 	columnPath   columnPath
 	columnType   Type
@@ -1133,13 +1149,14 @@ type writerColumn struct {
 		encoder  thrift.Encoder
 	}
 
-	filter         []byte
-	numRows        int64
-	bufferIndex    int32
-	bufferSize     int32
-	writePageStats bool
-	isCompressed   bool
-	encodings      []format.Encoding
+	filter          []byte
+	numRows         int64
+	bufferIndex     int32
+	bufferSize      int32
+	writePageStats  bool
+	writePageBounds bool
+	isCompressed    bool
+	encodings       []format.Encoding
 
 	columnChunk *format.ColumnChunk
 	offsetIndex *format.OffsetIndex
@@ -1155,13 +1172,11 @@ func (c *writerColumn) reset() {
 	if c.dictionary != nil {
 		c.dictionary.Reset()
 	}
-	for _, page := range c.pages {
-		c.pool.PutBuffer(page)
+	if c.pageBuffer != nil {
+		c.pool.PutBuffer(c.pageBuffer)
+		c.pageBuffer = nil
 	}
-	for i := range c.pages {
-		c.pages[i] = nil
-	}
-	c.pages = c.pages[:0]
+	c.numPages = 0
 	// Bloom filters may change in size between row groups, but we retain the
 	// buffer to avoid reallocating large memory blocks.
 	c.filter = c.filter[:0]
@@ -1195,7 +1210,7 @@ func (c *writerColumn) flush() (err error) {
 	return err
 }
 
-func (c *writerColumn) flushFilterPages() error {
+func (c *writerColumn) flushFilterPages() (err error) {
 	if c.columnFilter == nil {
 		return nil
 	}
@@ -1239,20 +1254,31 @@ func (c *writerColumn) flushFilterPages() error {
 		index:              int16(c.bufferIndex),
 	}
 
-	rbuf, pool := getBufioReader(nil, 1024)
+	var pageReader io.Reader = c.pageBuffer
+	if offset, err := c.pageBuffer.Seek(0, io.SeekStart); err != nil {
+		return err
+	} else if offset != 0 {
+		return fmt.Errorf("resetting parquet page buffer to the start expected offset zero but got %d", offset)
+	}
+
+	if _, ok := pageReader.(*os.File); ok {
+		rbuf, pool := getBufioReader(pageReader, 1024)
+		defer func() {
+			putBufioReader(rbuf, pool)
+		}()
+		pageReader = rbuf
+	}
+
 	pbuf := (*buffer)(nil)
 	defer func() {
-		putBufioReader(rbuf, pool)
 		if pbuf != nil {
 			pbuf.unref()
 		}
 	}()
 
-	decoder := thrift.NewDecoder(c.header.protocol.NewReader(rbuf))
+	decoder := thrift.NewDecoder(c.header.protocol.NewReader(pageReader))
 
-	for _, p := range c.pages {
-		rbuf.Reset(p)
-
+	for i := 0; i < c.numPages; i++ {
 		header := new(format.PageHeader)
 		if err := decoder.Decode(header); err != nil {
 			return err
@@ -1262,15 +1288,11 @@ func (c *writerColumn) flushFilterPages() error {
 			pbuf.unref()
 		}
 		pbuf = buffers.get(int(header.CompressedPageSize))
-		if _, err := io.ReadFull(rbuf, pbuf.data); err != nil {
-			return err
-		}
-		if _, err := p.Seek(0, io.SeekStart); err != nil {
+		if _, err := io.ReadFull(pageReader, pbuf.data); err != nil {
 			return err
 		}
 
 		var page Page
-		var err error
 
 		switch header.Type {
 		case format.DataPage:
@@ -1511,28 +1533,27 @@ func (w *writerColumn) writePageToFilter(page Page) (err error) {
 	return err
 }
 
-func (c *writerColumn) writePageTo(size int64, writeTo func(io.Writer) (int64, error)) error {
-	buffer := c.pool.GetBuffer()
-	defer func() {
-		if buffer != nil {
-			c.pool.PutBuffer(buffer)
+func (c *writerColumn) writePageTo(size int64, writeTo func(io.Writer) (int64, error)) (err error) {
+	if c.pageBuffer == nil {
+		c.pageBuffer = c.pool.GetBuffer()
+		defer func() {
+			if err != nil {
+				c.pool.PutBuffer(c.pageBuffer)
+				c.pageBuffer = nil
+			}
+		}()
+		if _, err = c.pageBuffer.Seek(0, io.SeekStart); err != nil {
+			return err
 		}
-	}()
-	written, err := writeTo(buffer)
+	}
+	written, err := writeTo(c.pageBuffer)
 	if err != nil {
 		return err
 	}
 	if written != size {
 		return fmt.Errorf("writing parquet column page expected %dB but got %dB: %w", size, written, io.ErrShortWrite)
 	}
-	offset, err := buffer.Seek(0, io.SeekStart)
-	if err != nil {
-		return err
-	}
-	if offset != 0 {
-		return fmt.Errorf("resetting parquet page buffer to the start expected offset zero but got %d", offset)
-	}
-	c.pages, buffer = append(c.pages, buffer), nil
+	c.numPages++
 	return nil
 }
 
@@ -1557,7 +1578,13 @@ func (c *writerColumn) recordPageStats(headerSize int32, header *format.PageHead
 	if page != nil {
 		numNulls := page.NumNulls()
 		numValues := page.NumValues()
-		minValue, maxValue, pageHasBounds := page.Bounds()
+
+		var minValue, maxValue Value
+		var pageHasBounds bool
+		if c.writePageBounds {
+			minValue, maxValue, pageHasBounds = page.Bounds()
+		}
+
 		c.columnIndex.IndexPage(numValues, numNulls, minValue, maxValue)
 		c.columnChunk.MetaData.NumValues += numValues
 		c.columnChunk.MetaData.Statistics.NullCount += numNulls
@@ -1572,11 +1599,19 @@ func (c *writerColumn) recordPageStats(headerSize int32, header *format.PageHead
 
 			if existingMaxValue.isNull() || c.columnType.Compare(maxValue, existingMaxValue) > 0 {
 				buf := c.columnChunk.MetaData.Statistics.MaxValue[:0]
+				// if maxValue is empty string, c.columnChunk.MetaData.Statistics.MaxValue should be []bytes{}, but nil
+				if buf == nil && maxValue.Kind() == ByteArray && len(maxValue.ByteArray()) == 0 {
+					buf = make([]byte, 0)
+				}
 				c.columnChunk.MetaData.Statistics.MaxValue = maxValue.AppendBytes(buf)
 			}
 
 			if existingMinValue.isNull() || c.columnType.Compare(minValue, existingMinValue) < 0 {
 				buf := c.columnChunk.MetaData.Statistics.MinValue[:0]
+				// same as above
+				if buf == nil && minValue.Kind() == ByteArray && len(minValue.ByteArray()) == 0 {
+					buf = make([]byte, 0)
+				}
 				c.columnChunk.MetaData.Statistics.MinValue = minValue.AppendBytes(buf)
 			}
 		}
