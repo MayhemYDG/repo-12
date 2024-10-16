@@ -28,7 +28,7 @@
     "jest": "27.5.1",
     "jest-mock": "^27.5.1",
     "jest-mock-extended": "^2.0.1",
-    "moment-timezone": "^0.5.34",
+    "moment-timezone": "^0.5.46",
     "nock": "^13.2.4",
     "prettier": "2.5.1",
     "ts-jest": "^27.1.3",
