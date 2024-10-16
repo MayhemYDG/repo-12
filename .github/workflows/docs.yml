@@ -339,7 +339,7 @@ jobs:
         \ file permissions automatically fixed::$line\"\ndone\n"
     - continue-on-error: true
       name: Setup Pages
-      uses: actions/configure-pages@b8130d9ab958b325bbde9786d62f2c97a9885a0e
+      uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
     - continue-on-error: true
       name: Upload artifact
       uses: actions/upload-pages-artifact@a753861a5debcf57bf8b404356158c8e1e33150c
