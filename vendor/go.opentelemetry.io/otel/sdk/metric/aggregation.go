@@ -1,22 +1,12 @@
 // Copyright The OpenTelemetry Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: Apache-2.0
 
 package metric // import "go.opentelemetry.io/otel/sdk/metric"
 
 import (
 	"errors"
 	"fmt"
+	"slices"
 )
 
 // errAgg is wrapped by misconfigured aggregations.
@@ -48,8 +38,8 @@ func (AggregationDrop) err() error { return nil }
 // make an aggregation selection based on instrument kind that differs from
 // the default. This Aggregation ensures the default is used.
 //
-// See the "go.opentelemetry.io/otel/sdk/metric".DefaultAggregationSelector
-// for information about the default instrument kind selection mapping.
+// See the [DefaultAggregationSelector] for information about the default
+// instrument kind selection mapping.
 type AggregationDefault struct{} // AggregationDefault has no parameters.
 
 var _ Aggregation = AggregationDefault{}
@@ -141,10 +131,8 @@ func (h AggregationExplicitBucketHistogram) err() error {
 
 // copy returns a deep copy of h.
 func (h AggregationExplicitBucketHistogram) copy() Aggregation {
-	b := make([]float64, len(h.Boundaries))
-	copy(b, h.Boundaries)
 	return AggregationExplicitBucketHistogram{
-		Boundaries: b,
+		Boundaries: slices.Clone(h.Boundaries),
 		NoMinMax:   h.NoMinMax,
 	}
 }
@@ -161,7 +149,7 @@ type AggregationBase2ExponentialHistogram struct {
 	// signed 32-bit integer index could be used.
 	//
 	// MaxScale has a minimum value of -10. Using a value of -10 means only
-	// two buckets will be use.
+	// two buckets will be used.
 	MaxScale int32
 
 	// NoMinMax indicates whether to not record the min and max of the
