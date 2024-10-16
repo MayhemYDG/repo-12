@@ -783,17 +783,17 @@ jobs:
         fetch-depth: 0
         persist-credentials: false
     - continue-on-error: true
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: webhook
         path: artifacts
     - continue-on-error: true
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: runners
         path: artifacts
     - continue-on-error: true
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: runner-binaries-syncer
         path: artifacts
