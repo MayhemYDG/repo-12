@@ -34,7 +34,7 @@ datafusion = { version = "32" }
 datafusion-expr = { version = "32" }
 datafusion-common = { version = "32" }
 datafusion-proto = { version = "32" }
-datafusion-sql = { version = "32" }
+datafusion-sql = { version = "42" }
 datafusion-physical-expr = { version = "32" }
 
 # serde
