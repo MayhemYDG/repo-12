@@ -1,5 +1,85 @@
 # Changelog
 
+## 6.0.3 (2024-10-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* additional block for internal extension information on the abo… ([#139](https://github.com/MayhemYDG/repo-12/issues/139))
+* maven central deployment ([#55](https://github.com/MayhemYDG/repo-12/issues/55))
+* Configured jax-rs controllers, filters and exception-mappers as singletons
+* Configured jax-rs controllers, filters and exception-mappers a… ([#44](https://github.com/MayhemYDG/repo-12/issues/44))
+
+### Features
+
+* additional block for internal extension information on the abo… ([#139](https://github.com/MayhemYDG/repo-12/issues/139)) ([d27c5cd](https://github.com/MayhemYDG/repo-12/commit/d27c5cd4840395463e29f5aeb06b9121b4896b50)), closes [#138](https://github.com/MayhemYDG/repo-12/issues/138)
+* allowed resource file types set expanded (woff/woff2/ico) ([#91](https://github.com/MayhemYDG/repo-12/issues/91)) ([47de7c7](https://github.com/MayhemYDG/repo-12/commit/47de7c7bb8b4eb65cb62c1c729031d1c7037fb7d)), closes [#90](https://github.com/MayhemYDG/repo-12/issues/90)
+* by default markdown2html-maven-plugin stops building on error ([#87](https://github.com/MayhemYDG/repo-12/issues/87)) ([9c57c49](https://github.com/MayhemYDG/repo-12/commit/9c57c499fc4b3102973df31f7fdcfa2f13168cef))
+* Configuration-Properties-Prefix added to manifest ([#164](https://github.com/MayhemYDG/repo-12/issues/164)) ([d2eec01](https://github.com/MayhemYDG/repo-12/commit/d2eec018359284c72cea77e8e6816c0e638d9d61)), closes [#163](https://github.com/MayhemYDG/repo-12/issues/163)
+* Configured jax-rs controllers, filters and exception-mappers a… ([#44](https://github.com/MayhemYDG/repo-12/issues/44)) ([382c97d](https://github.com/MayhemYDG/repo-12/commit/382c97d121c06eed7961c51fbf06ffc3a885406a))
+* Configured jax-rs controllers, filters and exception-mappers as singletons ([382c97d](https://github.com/MayhemYDG/repo-12/commit/382c97d121c06eed7961c51fbf06ffc3a885406a))
+* current context for test classes ([#180](https://github.com/MayhemYDG/repo-12/issues/180)) ([244de95](https://github.com/MayhemYDG/repo-12/commit/244de95898488926f2171478b366213446dcd6e3))
+* default about page changed to display help, if help is was not included link to README.md will be displayed ([#79](https://github.com/MayhemYDG/repo-12/issues/79)) ([030fc3f](https://github.com/MayhemYDG/repo-12/commit/030fc3fd49c3d2dfe9129b26c81f1891355483af))
+* deserialize methods with defaultValue parameter ([#159](https://github.com/MayhemYDG/repo-12/issues/159)) ([91e4c61](https://github.com/MayhemYDG/repo-12/commit/91e4c615c8cbd0ab767618d32368eca3e2df51fa)), closes [#158](https://github.com/MayhemYDG/repo-12/issues/158)
+* deserialize methods with defaultValue parameter ([#160](https://github.com/MayhemYDG/repo-12/issues/160)) ([3c8f10f](https://github.com/MayhemYDG/repo-12/commit/3c8f10fecc75126abbb33d9b7839af9c291aed9b))
+* do not return default settings if requested name does not exist  ([#25](https://github.com/MayhemYDG/repo-12/issues/25)) ([defe5f0](https://github.com/MayhemYDG/repo-12/commit/defe5f098a95b5c319454d0a5717560f5cbfc0ea))
+* do not return default settings if requested name is not exist ([#23](https://github.com/MayhemYDG/repo-12/issues/23)) ([18905bb](https://github.com/MayhemYDG/repo-12/commit/18905bbd6b40e46c7e797797c39de2a34763124b))
+* exclude "## Build", "## Installation to Polarion" and "## Changelog" sections from About page ([#96](https://github.com/MayhemYDG/repo-12/issues/96)) ([2822842](https://github.com/MayhemYDG/repo-12/commit/2822842ceee56aca0b7a107b3176605a552fcafb)), closes [#94](https://github.com/MayhemYDG/repo-12/issues/94)
+* Extended REST APi annotation ([#155](https://github.com/MayhemYDG/repo-12/issues/155)) ([2cd1808](https://github.com/MayhemYDG/repo-12/commit/2cd1808e4a6191bef17d8ce2e40e207f8d3552a5)), closes [#154](https://github.com/MayhemYDG/repo-12/issues/154)
+* extension context should not be null or blank ([#173](https://github.com/MayhemYDG/repo-12/issues/173)) ([ae54c17](https://github.com/MayhemYDG/repo-12/commit/ae54c17afa589d6a7a7004f96f30e648d1001a72))
+* GenericModule added. ([#9](https://github.com/MayhemYDG/repo-12/issues/9)) ([25ca190](https://github.com/MayhemYDG/repo-12/commit/25ca190e3361de90e1bc96b550929a3293132617))
+* jersey-client added as test dependency ([#113](https://github.com/MayhemYDG/repo-12/issues/113)) ([d0c48eb](https://github.com/MayhemYDG/repo-12/commit/d0c48eb9cbcfc1394c1b18a5ca04466facb7edee)), closes [#112](https://github.com/MayhemYDG/repo-12/issues/112)
+* maven central deployment ([#55](https://github.com/MayhemYDG/repo-12/issues/55)) ([a891203](https://github.com/MayhemYDG/repo-12/commit/a89120341a0cab3906c18a95dd452d75af0dcf9c))
+* maven profile for auto generation of about page based on readme.md added ([#40](https://github.com/MayhemYDG/repo-12/issues/40)) ([11c8baf](https://github.com/MayhemYDG/repo-12/commit/11c8baf4d9e23cff3ae6c4f73be2dc2bb24dd132))
+* sonarcloud with coverage support added ([#125](https://github.com/MayhemYDG/repo-12/issues/125)) ([7f50d15](https://github.com/MayhemYDG/repo-12/commit/7f50d15e1f503c3fe62e272dfef4239f8c5b5d1f))
+* swagger-maven-plugin added for OpenAPl spec generation ([#101](https://github.com/MayhemYDG/repo-12/issues/101)) ([e907109](https://github.com/MayhemYDG/repo-12/commit/e9071096c20d85e3c7cb8dd2cb3271efe7120e48)), closes [#100](https://github.com/MayhemYDG/repo-12/issues/100)
+* use markdown2html-maven-plugin for making generation of about.html based on README.md cross-platform ([#82](https://github.com/MayhemYDG/repo-12/issues/82)) ([e78475b](https://github.com/MayhemYDG/repo-12/commit/e78475b8ac112ecc3206d2c1dc0fa6770d3a7c4c)), closes [#81](https://github.com/MayhemYDG/repo-12/issues/81)
+* XSRF Token support ([#95](https://github.com/MayhemYDG/repo-12/issues/95)) ([f7df6f3](https://github.com/MayhemYDG/repo-12/commit/f7df6f347786b2c9571fb097809b4acdc9cbb3aa)), closes [#93](https://github.com/MayhemYDG/repo-12/issues/93)
+
+
+### Bug Fixes
+
+* add missing profiles in settings.xml ([#8](https://github.com/MayhemYDG/repo-12/issues/8)) ([295e052](https://github.com/MayhemYDG/repo-12/commit/295e052cbe6329368464514cf24fe7aec736b06c))
+* cannot insert csv with spaces next to comma into multi-enum field ([#105](https://github.com/MayhemYDG/repo-12/issues/105)) ([426fd74](https://github.com/MayhemYDG/repo-12/commit/426fd74a1ca09b865370191f8f19815a0e1c97a1)), closes [#104](https://github.com/MayhemYDG/repo-12/issues/104)
+* Changed exception mapping logic. ([#69](https://github.com/MayhemYDG/repo-12/issues/69)) ([a5290cd](https://github.com/MayhemYDG/repo-12/commit/a5290cd310bc146acbf0fc8ad7ced6569c39cce7))
+* Changed logic for exception handling ([#76](https://github.com/MayhemYDG/repo-12/issues/76)) ([9b17f32](https://github.com/MayhemYDG/repo-12/commit/9b17f32163bc8766faedfb5c5e0a7e190a755192))
+* check polarion configuration whether XSRF Token is enabled ([#98](https://github.com/MayhemYDG/repo-12/issues/98)) ([6549a95](https://github.com/MayhemYDG/repo-12/commit/6549a95a4e79632e787c2138f9a803556ab31aea)), closes [#93](https://github.com/MayhemYDG/repo-12/issues/93)
+* deprecation in GitHub actions for maven-release  ([#14](https://github.com/MayhemYDG/repo-12/issues/14)) ([dc2ee7d](https://github.com/MayhemYDG/repo-12/commit/dc2ee7d0bf06c71003e1e1300008387901de1398))
+* exceptions are refactored not to use JAX-RS exceptions in services ([#18](https://github.com/MayhemYDG/repo-12/issues/18)) ([6c7de85](https://github.com/MayhemYDG/repo-12/commit/6c7de855b40cb72cdda677a98c5311a930079eda))
+* exceptions are refactored not to use JAX-RS exceptions in services ([#20](https://github.com/MayhemYDG/repo-12/issues/20)) ([0e8e0df](https://github.com/MayhemYDG/repo-12/commit/0e8e0df77554bf947e0aaa06fe728a5f503b830c))
+* exclude extra mappers registration in JacksonFeature ([#146](https://github.com/MayhemYDG/repo-12/issues/146)) ([c681097](https://github.com/MayhemYDG/repo-12/commit/c6810979201adaee82061d7a6a44b59c3efbf7d3)), closes [#173](https://github.com/MayhemYDG/repo-12/issues/173)
+* fields data ignored on new style package creation ([#184](https://github.com/MayhemYDG/repo-12/issues/184)) ([f934104](https://github.com/MayhemYDG/repo-12/commit/f934104c3d9655c51908c62df7cababab1a8093d))
+* Fixed loading named settings ([#50](https://github.com/MayhemYDG/repo-12/issues/50)) ([23a96ed](https://github.com/MayhemYDG/repo-12/commit/23a96edebb890914507642e3e7f3403daf1963eb)), closes [#51](https://github.com/MayhemYDG/repo-12/issues/51)
+* jacoco "can't add different class with same name" issue introduced in v6.7.0 ([#141](https://github.com/MayhemYDG/repo-12/issues/141)) ([c46bb87](https://github.com/MayhemYDG/repo-12/commit/c46bb87aee8b4743abe58e5605f6b8c60d76eaf5))
+* JavaScript error 'getStringIfTextResponse not a function' fixed ([#108](https://github.com/MayhemYDG/repo-12/issues/108)) ([046195d](https://github.com/MayhemYDG/repo-12/commit/046195d70ac95826066d205f1e17c906425d5bee))
+* mvn central deployment ([#58](https://github.com/MayhemYDG/repo-12/issues/58)) ([b187ed0](https://github.com/MayhemYDG/repo-12/commit/b187ed08debd6da4f4e936a5b0d216b93dc87f5b))
+* options mapping refactoring ([#176](https://github.com/MayhemYDG/repo-12/issues/176)) ([243f4f9](https://github.com/MayhemYDG/repo-12/commit/243f4f937ef2f347b0f0d1f86f6c01fbd1b21572))
+* processing URLs in About page ([#151](https://github.com/MayhemYDG/repo-12/issues/151)) ([9ba2966](https://github.com/MayhemYDG/repo-12/commit/9ba2966b26d801e0241e66cc0576b98a9cc97b4d))
+* security alerts fix ([#30](https://github.com/MayhemYDG/repo-12/issues/30)) ([f75403a](https://github.com/MayhemYDG/repo-12/commit/f75403af7435251324532ddd94afa0c5fda9b70b))
+* show revision in the exception message if it was provided as a p… ([#128](https://github.com/MayhemYDG/repo-12/issues/128)) ([107e96e](https://github.com/MayhemYDG/repo-12/commit/107e96e91a80ccbe96b971b358cb6ad524ef8fcb))
+* sonar configuration ([#135](https://github.com/MayhemYDG/repo-12/issues/135)) ([d783261](https://github.com/MayhemYDG/repo-12/commit/d783261add5de1cce254a64cd9739e62d106883e))
+* SonarQube code smells ([#170](https://github.com/MayhemYDG/repo-12/issues/170)) ([837a95a](https://github.com/MayhemYDG/repo-12/commit/837a95ad293861368472594aedc1287a806b2aba))
+* sonarqube code smells ([#178](https://github.com/MayhemYDG/repo-12/issues/178)) ([cc0cfc8](https://github.com/MayhemYDG/repo-12/commit/cc0cfc81cf3facc26e62fb901fc5d2187f9e1591))
+* sonarqube quality issues ([#134](https://github.com/MayhemYDG/repo-12/issues/134)) ([f7873d3](https://github.com/MayhemYDG/repo-12/commit/f7873d30abedb71ba213540057aa44245f8fd8a2))
+* Sort rows in Extension configuration status table by configuration name ([#150](https://github.com/MayhemYDG/repo-12/issues/150)) ([75550d4](https://github.com/MayhemYDG/repo-12/commit/75550d45b85924bc9675f523698b1127e60fa536)), closes [#148](https://github.com/MayhemYDG/repo-12/issues/148)
+* update markdown2html maven plugin to v1.3.0 to generate heading IDs ([#116](https://github.com/MayhemYDG/repo-12/issues/116)) ([2b195ff](https://github.com/MayhemYDG/repo-12/commit/2b195ffabe5d8b423ddf9a33633202b1c0570228))
+* upload tests jar to maven central and github packages ([#121](https://github.com/MayhemYDG/repo-12/issues/121)) ([89dd429](https://github.com/MayhemYDG/repo-12/commit/89dd429717318ce9d7de1ad288ae46d0cf74b078))
+* use altDeploymentRepository instead of altReleaseDeploymentRepository ([#12](https://github.com/MayhemYDG/repo-12/issues/12)) ([314ce47](https://github.com/MayhemYDG/repo-12/commit/314ce4707628b0ece0e1f6f880a1c3e0dcf58348))
+* use separate attribute for XSRF token in LogoutFilter ([#143](https://github.com/MayhemYDG/repo-12/issues/143)) ([37e3364](https://github.com/MayhemYDG/repo-12/commit/37e33644b2aa0a5f708fcc0c5ebc736aa2faf57a))
+* wrong configuration properties if no Configuration-Properties-Prefix provided in manifest ([#187](https://github.com/MayhemYDG/repo-12/issues/187)) ([473af1a](https://github.com/MayhemYDG/repo-12/commit/473af1a8dd7bcccf0415206e8c762a83ef127f53)), closes [#186](https://github.com/MayhemYDG/repo-12/issues/186)
+
+
+### Documentation
+
+* changelog history moved from README.md to CHANGELOG.md ([#27](https://github.com/MayhemYDG/repo-12/issues/27)) ([a635528](https://github.com/MayhemYDG/repo-12/commit/a635528852f77c4eb91887fb12816b60c8186004))
+* README.md updated according to the latest changes ([#84](https://github.com/MayhemYDG/repo-12/issues/84)) ([09042ba](https://github.com/MayhemYDG/repo-12/commit/09042baa02d22a373bed8be2b1bc7b1e8f2857d4)), closes [#81](https://github.com/MayhemYDG/repo-12/issues/81)
+
+
+### Miscellaneous Chores
+
+* release 4.8.1 ([#4](https://github.com/MayhemYDG/repo-12/issues/4)) ([5fc3c1f](https://github.com/MayhemYDG/repo-12/commit/5fc3c1f52be9b43ed20c4e5a71f189d3dc995c89))
+* release 6.0.3 ([#73](https://github.com/MayhemYDG/repo-12/issues/73)) ([35a441b](https://github.com/MayhemYDG/repo-12/commit/35a441bd046c6295c23c33b32a32e9db3d94607d))
+
 ## [7.4.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.generic/compare/v7.4.0...v7.4.1) (2024-10-15)
 
 
