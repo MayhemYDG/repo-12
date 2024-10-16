@@ -342,7 +342,7 @@ jobs:
       uses: actions/configure-pages@b8130d9ab958b325bbde9786d62f2c97a9885a0e
     - continue-on-error: true
       name: Upload artifact
-      uses: actions/upload-pages-artifact@a753861a5debcf57bf8b404356158c8e1e33150c
+      uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
       with:
         path: ./docs/book/html/
     - continue-on-error: true
