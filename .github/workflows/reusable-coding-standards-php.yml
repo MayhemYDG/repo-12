@@ -254,7 +254,7 @@ jobs:
         show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
     - continue-on-error: true
       name: Set up PHP
-      uses: shivammathur/setup-php@a4e22b60bbb9c1021113f2860347b0759f66fe5d
+      uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231
       with:
         coverage: none
         php-version: ${{ inputs.php-version }}
@@ -265,7 +265,7 @@ jobs:
       run: echo "date=$(/bin/date -u --date='last Mon' "+%F")" >> $GITHUB_OUTPUT
     - continue-on-error: true
       name: Cache PHPCS scan cache
-      uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319
+      uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8
       with:
         key: ${{ runner.os }}-date-${{ steps.get-date.outputs.date }}-php-${{ inputs.php-version
           }}-phpcs-cache-${{ hashFiles('**/composer.json', 'phpcs.xml.dist') }}

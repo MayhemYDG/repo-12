@@ -264,7 +264,7 @@ jobs:
         show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
     - continue-on-error: true
       name: Set up Node.js
-      uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6
       with:
         cache: npm
         node-version-file: .nvmrc
@@ -341,7 +341,7 @@ jobs:
     - continue-on-error: true
       if: always()
       name: Archive debug artifacts (screenshots, HTML snapshots)
-      uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         if-no-files-found: ignore
         name: failures-artifacts${{ inputs.LOCAL_SCRIPT_DEBUG && '-SCRIPT_DEBUG' ||
