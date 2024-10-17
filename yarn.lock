@@ -1356,22 +1356,17 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@rails/actioncable@6.1.709":
-  version "6.1.709"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.1.709.tgz#4c4817a8a128f7816430074f399aad3a0d4bef01"
-  integrity sha512-SkwXts+6yBaEHwN63AYF1r7lt5bJsqBziaJhlE91y+3UjPl0T/aIssWVitbzAHF4YrLWh43jrdsLoYUpymlW7Q==
-
-"@rails/actioncable@^7.0":
+"@rails/actioncable@7.2.101", "@rails/actioncable@^7.0":
   version "7.2.101"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.2.101.tgz#d0544b1bc51d420c1bb27f3281ccae54945e70f6"
   integrity sha512-YgFCyD+9mBhpJdfgf4QtJwk+vZbByVMXsEGREM6GrPk9A1pYXkkIpzYd3+843E+33e3S81yywhqZc3DyrZGPSg==
 
-"@rails/activestorage@6.1.709":
-  version "6.1.709"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.1.709.tgz#c66692f4553b3b0c935b512f3ca7d81852d90092"
-  integrity sha512-y60WjFMOyxSVKZfmETXtvt3ivPVs+meXA2O5MRypVP6zmz4YKSQnvaGAM0iPG1eOmTQ+MumWbxKo8sUGP4wMlA==
+"@rails/activestorage@7.2.101":
+  version "7.2.101"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-7.2.101.tgz#fc786623431e7d5ef2b4e73b8c1cbfb890f18aac"
+  integrity sha512-N4Lb2xW+6OFeE8f0nvOo6vigVM3VWlEYO6+wPBgc26CFstVG2zXbj4SV88JW3hZSArcCVox726hbXogwMV7hcg==
   dependencies:
-    spark-md5 "^3.0.0"
+    spark-md5 "^3.0.1"
 
 "@rtsao/scc@^1.1.0":
   version "1.1.0"
@@ -5645,7 +5640,7 @@ source-map@0.6.1, source-map@^0.6.0, source-map@^0.6.1:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
-spark-md5@^3.0.0:
+spark-md5@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.2.tgz#7952c4a30784347abcee73268e473b9c0167e3fc"
   integrity sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==
